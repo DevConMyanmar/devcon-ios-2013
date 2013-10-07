@@ -21,6 +21,10 @@
 		2F03455A1802A72500883A2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03453C1802A72500883A2D /* UIKit.framework */; };
 		2F0345621802A72500883A2D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F0345601802A72500883A2D /* InfoPlist.strings */; };
 		2F0345641802A72500883A2D /* DevConTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0345631802A72500883A2D /* DevConTests.m */; };
+		2F0345701802ADBF00883A2D /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F03456F1802ADBF00883A2D /* DBManager.m */; };
+		2F0345721802ADE100883A2D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0345711802ADE100883A2D /* libsqlite3.0.dylib */; };
+		2F0345751802AE4900883A2D /* StringTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0345741802AE4900883A2D /* StringTable.m */; };
+		2F0345771802B04D00883A2D /* devcon.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F0345761802B04D00883A2D /* devcon.sqlite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,12 @@
 		2F03455F1802A72500883A2D /* DevConTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DevConTests-Info.plist"; sourceTree = "<group>"; };
 		2F0345611802A72500883A2D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2F0345631802A72500883A2D /* DevConTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevConTests.m; sourceTree = "<group>"; };
+		2F03456E1802ADBF00883A2D /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		2F03456F1802ADBF00883A2D /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		2F0345711802ADE100883A2D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		2F0345731802AE4900883A2D /* StringTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringTable.h; sourceTree = "<group>"; };
+		2F0345741802AE4900883A2D /* StringTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTable.m; sourceTree = "<group>"; };
+		2F0345761802B04D00883A2D /* devcon.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = devcon.sqlite; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F0345721802ADE100883A2D /* libsqlite3.0.dylib in Frameworks */,
 				2F03453B1802A72500883A2D /* CoreGraphics.framework in Frameworks */,
 				2F03453D1802A72500883A2D /* UIKit.framework in Frameworks */,
 				2F0345391802A72500883A2D /* Foundation.framework in Frameworks */,
@@ -101,6 +112,7 @@
 		2F0345371802A72500883A2D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F0345711802ADE100883A2D /* libsqlite3.0.dylib */,
 				2F0345381802A72500883A2D /* Foundation.framework */,
 				2F03453A1802A72500883A2D /* CoreGraphics.framework */,
 				2F03453C1802A72500883A2D /* UIKit.framework */,
@@ -112,6 +124,8 @@
 		2F03453E1802A72500883A2D /* DevCon */ = {
 			isa = PBXGroup;
 			children = (
+				2F0345781802B05100883A2D /* Resources */,
+				2F03456D1802AD5300883A2D /* Util */,
 				2F0345471802A72500883A2D /* AppDelegate.h */,
 				2F0345481802A72500883A2D /* AppDelegate.m */,
 				2F03454A1802A72500883A2D /* Main.storyboard */,
@@ -150,6 +164,25 @@
 				2F0345601802A72500883A2D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2F03456D1802AD5300883A2D /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				2F0345731802AE4900883A2D /* StringTable.h */,
+				2F0345741802AE4900883A2D /* StringTable.m */,
+				2F03456E1802ADBF00883A2D /* DBManager.h */,
+				2F03456F1802ADBF00883A2D /* DBManager.m */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		2F0345781802B05100883A2D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2F0345761802B04D00883A2D /* devcon.sqlite */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +261,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F0345771802B04D00883A2D /* devcon.sqlite in Resources */,
 				2F0345511802A72500883A2D /* Images.xcassets in Resources */,
 				2F0345431802A72500883A2D /* InfoPlist.strings in Resources */,
 				2F03454C1802A72500883A2D /* Main.storyboard in Resources */,
@@ -251,7 +285,9 @@
 			files = (
 				2F03454F1802A72500883A2D /* ViewController.m in Sources */,
 				2F0345491802A72500883A2D /* AppDelegate.m in Sources */,
+				2F0345751802AE4900883A2D /* StringTable.m in Sources */,
 				2F0345451802A72500883A2D /* main.m in Sources */,
+				2F0345701802ADBF00883A2D /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,11 +412,13 @@
 		2F0345681802A72500883A2D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DevCon/DevCon-Prefix.pch";
 				INFOPLIST_FILE = "DevCon/DevCon-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -389,11 +427,13 @@
 		2F0345691802A72500883A2D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DevCon/DevCon-Prefix.pch";
 				INFOPLIST_FILE = "DevCon/DevCon-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

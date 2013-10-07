@@ -9,10 +9,13 @@
 #import "AppDelegate.h"
 
 @implementation AppDelegate
-
+@synthesize databasePath,db;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    self.db = [[DBManager alloc] init];
+	[self.db checkAndCreateDatabase];
+    
     return YES;
 }
 							
