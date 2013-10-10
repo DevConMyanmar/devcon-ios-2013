@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
-
+#import "ObjSpeaker.h"
+#import "ObjLocation.h"
 
 @interface DBManager : NSObject{
     
 }
 
 - (void) checkAndCreateDatabase;
-
+- (NSMutableArray *) getAllSchedules;
+- (ObjSpeaker *) getSpeakerById:(int)idx;
+- (ObjLocation *) getLocationById:(int)idx;
+- (void) updateScheduleFav:(int)idx andFav:(int)fav;
 @end
