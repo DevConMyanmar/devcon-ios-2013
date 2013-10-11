@@ -17,7 +17,9 @@
 
 - (void) checkAndCreateDatabase;
 - (NSMutableArray *) getAllSchedules;
+- (NSMutableArray *) getAllSpeakers;
 - (ObjSpeaker *) getSpeakerById:(int)idx;
 - (ObjLocation *) getLocationById:(int)idx;
 - (void) updateScheduleFav:(int)idx andFav:(int)fav;
+- (NSMutableArray *) getAllSchedulesByFav;
 @end

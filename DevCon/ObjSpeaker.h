@@ -13,4 +13,8 @@
 @property (nonatomic,retain) NSString * strSpeakerName;
 @property (nonatomic,retain) NSString * strEmail;
 @property (nonatomic,retain) NSString * strDescription;
+@property (nonatomic,retain) NSString * strJobTitle;
+@property (nonatomic,retain) NSString * strCompany;
+@property (nonatomic,retain) NSString * strProfilePic;
+@property (nonatomic,retain) NSString * strProfileCoverPic;
 @end

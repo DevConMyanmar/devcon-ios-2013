@@ -114,6 +114,135 @@
 	return list;
 }
 
+- (NSMutableArray *) getAllSchedulesByFav{
+    
+	AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+	sqlite3 *database;
+	NSMutableArray * list = [[NSMutableArray alloc] init];
+	
+    if(sqlite3_open([delegate.databasePath UTF8String], &database) == SQLITE_OK) {
+        
+        const char *sqlStatement = "SELECT * FROM talks WHERE fav = 1";
+        //const char *sqlStatement = "SELECT * FROM tbl_reminder";
+        
+        sqlite3_stmt *compiledStatement;
+        if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+            
+            //sqlite3_bind_int(compiledStatement, 1, catId);
+            
+            while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+                
+                ObjSchedule * obj = [[ObjSchedule alloc] init];
+                
+                obj.idx = sqlite3_column_int(compiledStatement, 0);
+                
+                obj.strTime = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 1) != nil ){
+                    obj.strTime = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+                }
+                
+                obj.strTitle = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 2) != nil ){
+                    obj.strTitle = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+                }
+                
+                obj.strSpeakerName = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 3) != nil ){
+                    obj.strSpeakerName = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+                }
+                
+                obj.strDescription = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 4) != nil ){
+                    obj.strDescription = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+                }
+                
+                obj.isFav = sqlite3_column_int(compiledStatement, 5);
+                
+                obj.speakerId = sqlite3_column_int(compiledStatement, 6);
+                
+                obj.timetick = sqlite3_column_int(compiledStatement, 7);
+                
+                obj.locationId = sqlite3_column_int(compiledStatement, 8);
+                
+                [list addObject: obj];
+            }
+        }
+        
+        sqlite3_finalize(compiledStatement);
+    }
+    sqlite3_close(database);
+    
+	return list;
+}
+
+- (NSMutableArray *) getAllSpeakers{
+    
+	AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+	sqlite3 *database;
+	NSMutableArray * list = [[NSMutableArray alloc] init];
+	
+    if(sqlite3_open([delegate.databasePath UTF8String], &database) == SQLITE_OK) {
+        
+        const char *sqlStatement = "SELECT * FROM speakers";
+        //const char *sqlStatement = "SELECT * FROM tbl_reminder";
+        
+        sqlite3_stmt *compiledStatement;
+        if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+            
+            //sqlite3_bind_int(compiledStatement, 1, catId);
+            
+            while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+                
+                ObjSpeaker * obj = [[ObjSpeaker alloc] init];
+                
+                obj.idx = sqlite3_column_int(compiledStatement, 0);
+                
+                obj.strSpeakerName = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 1) != nil){
+                    obj.strSpeakerName = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+                }
+                
+                obj.strDescription = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 2) != nil){
+                    obj.strDescription = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+                }
+                
+                obj.strEmail = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 3) != nil){
+                    obj.strEmail = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+                }
+                
+                obj.strJobTitle = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 4) != nil){
+                    obj.strJobTitle = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+                }
+                
+                obj.strCompany = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 5) != nil){
+                    obj.strCompany = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+                }
+                
+                obj.strProfilePic = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 6) != nil){
+                    obj.strProfilePic = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+                }
+                
+                obj.strProfileCoverPic = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 7) != nil){
+                    obj.strProfileCoverPic = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
+                }
+                
+                [list addObject: obj];
+            }
+        }
+        
+        sqlite3_finalize(compiledStatement);
+    }
+    sqlite3_close(database);
+    
+	return list;
+}
+
 - (ObjSpeaker *) getSpeakerById:(int)idx{
     
 	AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
@@ -148,6 +277,26 @@
                 obj.strEmail = @"";
                 if( (char *)sqlite3_column_text(compiledStatement, 3) != nil){
                     obj.strEmail = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+                }
+                
+                obj.strJobTitle = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 4) != nil){
+                    obj.strJobTitle = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+                }
+                
+                obj.strCompany = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 5) != nil){
+                    obj.strCompany = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+                }
+                
+                obj.strProfilePic = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 6) != nil){
+                    obj.strProfilePic = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+                }
+                
+                obj.strProfileCoverPic = @"";
+                if( (char *)sqlite3_column_text(compiledStatement, 7) != nil){
+                    obj.strProfileCoverPic = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
                 }
             }
         }

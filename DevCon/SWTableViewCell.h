@@ -37,6 +37,8 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier height:(CGFloat)height leftUtilityButtons:(NSArray *)leftUtilityButtons rightUtilityButtons:(NSArray *)rightUtilityButtons;
 
+- (void)wayToOriginalScrollView;
+
 /**** for Schedule cell ****/
 @property (nonatomic, strong) ObjSchedule * objSchedule;
 - (void)loadTheViewWith:(ObjSchedule *)obj;

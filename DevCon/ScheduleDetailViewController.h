@@ -10,4 +10,5 @@
 #import "ObjSchedule.h"
 @interface ScheduleDetailViewController : UIViewController
 @property (nonatomic,strong) ObjSchedule * objSchedule;
+- (CGFloat)heightOfViewWithPureHeight:(NSString *)str andFontName:(NSString *)strFont andFontSize:(float)fSize andMinimumSize:(float)mSize andWidth:(float)width;
 @end

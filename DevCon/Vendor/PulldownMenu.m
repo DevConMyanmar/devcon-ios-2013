@@ -179,6 +179,7 @@ handleColor;
     UIView *cellSelectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     cellSelectedBackgroundView.backgroundColor = cellSelectedColor;
     cell.selectedBackgroundView = cellSelectedBackgroundView;
+    [cell.selectedBackgroundView setAlpha:0.95];
     cell.selectionStyle = cellSelectionStyle;
     
     /*[cell.textLabel setTextColor:cellTextColor];

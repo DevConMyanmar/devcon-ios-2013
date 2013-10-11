@@ -9,8 +9,13 @@
 #import "MainNavigationViewController.h"
 #import "UIColor+Expanded.h"
 #import "NavBarButton.h"
+#import "ViewController.h"
+#import "SpeakersViewController.h"
+#import "FavouritesViewController.h"
 @interface MainNavigationViewController ()
-
+{
+    IBOutlet UINavigationController * navMainController;
+}
 @end
 
 @implementation MainNavigationViewController
@@ -38,6 +43,7 @@
     pulldownMenu.delegate = self;
     
     pulldownMenu.handleColor = [UIColor colorWithHexString:@"dd7e37"];
+    pulldownMenu.cellSelectedColor = [UIColor colorWithHexString:@"586d73"];
     
     [pulldownMenu loadMenu];
     
@@ -45,7 +51,25 @@
 
 -(void)menuItemSelected:(NSIndexPath *)indexPath
 {
-    NSLog(@"%d",indexPath.item);
+    NSLog(@"menu %d",indexPath.item);
+    if (indexPath.item == 0) {
+        ViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"schedule"];
+        self.viewControllers = @[viewController];
+        [pulldownMenu animateDropDown];
+    }
+    else if (indexPath.item == 1) {
+        SpeakersViewController *sViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"speakers"];
+        self.viewControllers = @[sViewController];
+        
+         [pulldownMenu animateDropDown];
+    }
+    else if (indexPath.item == 2) {
+        FavouritesViewController *fViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"favourites"];
+        self.viewControllers = @[fViewController];
+        
+        [pulldownMenu animateDropDown];
+    }
+    //favourites
 }
 
 - (void)animateDropDown{

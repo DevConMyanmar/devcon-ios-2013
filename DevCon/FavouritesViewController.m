@@ -1,21 +1,22 @@
 //
-//  ViewController.m
+//  FavouritesViewController.m
 //  DevCon
 //
-//  Created by Zayar on 10/7/13.
+//  Created by Zayar on 10/10/13.
 //  Copyright (c) 2013 devcon. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "FavouritesViewController.h"
+#import "UIColor+Expanded.h"
+#import "NavBarButton.h"
+#import "MainNavigationViewController.h"
 #import "UIColor+Expanded.h"
 #import "AppDelegate.h"
 #import "ScheduleCell.h"
 #import "ObjSchedule.h"
-#import "NavBarButton.h"
-#import "MainNavigationViewController.h"
 #import "SWTableViewCell.h"
 #import "ScheduleDetailViewController.h"
-@interface ViewController ()
+@interface FavouritesViewController ()
 {
     IBOutlet UITableView * tbl;
     NSMutableArray * arrSchedules;
@@ -23,31 +24,37 @@
 }
 @end
 
-@implementation ViewController
+@implementation FavouritesViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	UILabel * lblName = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 80, 30)];
+	// Do any additional setup after loading the view.
+    UILabel * lblName = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 80, 30)];
     lblName.backgroundColor = [UIColor clearColor];
     lblName.textColor = [UIColor whiteColor];
     NSString * strValueFontName=@"AvenirNext-Regular";
     lblName.font = [UIFont fontWithName:strValueFontName size:19];
-    lblName.text= @"DEV CON";
+    lblName.text= @"FAVOURITES";
     lblName.textAlignment = NSTextAlignmentCenter;
     lblName.textColor = [UIColor colorWithHexString:@"005b71"];
     self.navigationItem.titleView = lblName;
-    
-    if ([tbl respondsToSelector:@selector(separatorInset)]) {
-        [tbl setSeparatorInset:UIEdgeInsetsZero];
-    }
-    
     NavBarButton *btnBack = [[NavBarButton alloc] init];
     [btnBack addTarget:self action:@selector(animateDropDown:) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithCustomView:btnBack];
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.leftBarButtonItem = backButton;
+    
     
     //self.edgesForExtendedLayout = UIRectEdgeNone;
     //tbl.contentInset = UIEdgeInsetsMake(0, 0, -20, 0);
@@ -61,7 +68,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     AppDelegate * delegate= [[UIApplication sharedApplication]delegate];
     
-    arrSchedules = [delegate.db getAllSchedules];
+    arrSchedules = [delegate.db getAllSchedulesByFav];
     NSLog(@"schedules count %d",[arrSchedules count]);
     
     if (selectedCell) {
@@ -74,6 +81,7 @@
             [button setImage:[UIImage imageNamed:@"Star"] forState:UIControlStateNormal];
         }
     }
+    [tbl reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,39 +103,39 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     /*static NSString *CellIdentifier = @"ScheduleCell";
-	ScheduleCell *cell = (ScheduleCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-	if (cell == nil) {
-		cell = [[ScheduleCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-	}
-    ObjSchedule * obj = [arrSchedules objectAtIndex:[indexPath row]];
-    [cell loadTheViewWith:obj];
-    return cell;*/
+     ScheduleCell *cell = (ScheduleCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+     
+     if (cell == nil) {
+     cell = [[ScheduleCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+     }
+     ObjSchedule * obj = [arrSchedules objectAtIndex:[indexPath row]];
+     [cell loadTheViewWith:obj];
+     return cell;*/
     static NSString *cellIdentifier = @"Cell";
     
     SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     //if (cell == nil) {
-        NSMutableArray *leftUtilityButtons = [NSMutableArray new];
-        NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-        
-        //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:0.07 green:0.75f blue:0.16f alpha:1.0] icon:[UIImage imageNamed:@"check.png"]];
-        //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:1.0] icon:[UIImage imageNamed:@"clock.png"]];
-        //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188f alpha:1.0] icon:[UIImage imageNamed:@"cross.png"]];
-        //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0] icon:[UIImage imageNamed:@"list.png"]];
-        
-        [rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:221/255.f green:126/255.f blue:55/255.f alpha:1] icon:[UIImage imageNamed:@"Star_Unselect"] andTag:indexPath.row];
-        //[rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] title:@"Delete"];
-        
-        cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier height:([ScheduleCell heightForCellWithPost:[arrSchedules objectAtIndex:indexPath.row]]+ 81) leftUtilityButtons:leftUtilityButtons rightUtilityButtons:rightUtilityButtons];
-        cell.delegate = self;
-   // }
+    NSMutableArray *leftUtilityButtons = [NSMutableArray new];
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    
+    //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:0.07 green:0.75f blue:0.16f alpha:1.0] icon:[UIImage imageNamed:@"check.png"]];
+    //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:1.0] icon:[UIImage imageNamed:@"clock.png"]];
+    //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188f alpha:1.0] icon:[UIImage imageNamed:@"cross.png"]];
+    //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0] icon:[UIImage imageNamed:@"list.png"]];
+    
+    [rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:221/255.f green:126/255.f blue:55/255.f alpha:1] icon:[UIImage imageNamed:@"Star_Unselect"] andTag:indexPath.row];
+    //[rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] title:@"Delete"];
+    
+    cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier height:([ScheduleCell heightForCellWithPost:[arrSchedules objectAtIndex:indexPath.row]]+ 81) leftUtilityButtons:leftUtilityButtons rightUtilityButtons:rightUtilityButtons];
+    cell.delegate = self;
+    // }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     /*NSDate *dateObject = arrSchedules[indexPath.row];
-    cell.textLabel.text = [dateObject description];
-    cell.detailTextLabel.text = @"Some detail text";*/
+     cell.textLabel.text = [dateObject description];
+     cell.detailTextLabel.text = @"Some detail text";*/
     ObjSchedule * obj = [arrSchedules objectAtIndex:[indexPath row]];
     UIButton *button = [cell.rightUtilityButtons objectAtIndex:0];
     //button.backgroundColor = color;
@@ -170,34 +178,24 @@
         case 0:
         {
             NSLog(@"More button was pressed");
-            ObjSchedule * obj = [arrSchedules objectAtIndex:cell.tag];
-            UIButton *button = [cell.rightUtilityButtons objectAtIndex:index];
-            NSLog(@"obj fav %d",obj.isFav);
-            //button.backgroundColor = color;
+            NSIndexPath *cellIndexPath = [tbl indexPathForCell:cell];
+            ObjSchedule * obj = [arrSchedules objectAtIndex:cellIndexPath.row];
             AppDelegate * delegate = [[UIApplication sharedApplication]delegate];
-            if (obj.isFav == 0) {
-                [button setImage:[UIImage imageNamed:@"Star"] forState:UIControlStateNormal];
-                obj.isFav = 1;
-                [delegate.db updateScheduleFav:obj.idx andFav:obj.isFav];
-                [arrSchedules replaceObjectAtIndex:cell.tag withObject:obj];
-                [cell wayToOriginalScrollView];
-            }
-            else if (obj.isFav == 1){
-                [button setImage:[UIImage imageNamed:@"Star_Unselect"] forState:UIControlStateNormal];
+            if (obj.isFav == 1){
                 obj.isFav = 0;
                 [delegate.db updateScheduleFav:obj.idx andFav:obj.isFav];
-                [arrSchedules replaceObjectAtIndex:cell.tag withObject:obj];
-                [cell wayToOriginalScrollView];
+                NSLog(@"cell tag %d",cellIndexPath.row);
+                [arrSchedules removeObjectAtIndex:cellIndexPath.row];
+                [tbl deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                 break;
             }
-            break;
         }
-            
         case 1:
         {
             // Delete button was pressed
             NSIndexPath *cellIndexPath = [tbl indexPathForCell:cell];
             
-           // [_testArray removeObjectAtIndex:cellIndexPath.row];
+            // [_testArray removeObjectAtIndex:cellIndexPath.row];
             //[self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         }

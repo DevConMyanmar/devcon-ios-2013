@@ -247,23 +247,7 @@ typedef enum {
     [scrollViewButtonViewLeft populateUtilityButtons];
     [scrollViewButtonViewRight populateUtilityButtons];
     
-    // Create the content view that will live in our scroll view
-    UIView *scrollViewContentView = [[UIView alloc] initWithFrame:CGRectMake([self leftUtilityButtonsWidth], 0, CGRectGetWidth(self.bounds), _height)];
-    scrollViewContentView.backgroundColor = [UIColor whiteColor];
-    [self.cellScrollView addSubview:scrollViewContentView];
-    self.scrollViewContentView = scrollViewContentView;
     
-    // Add the cell scroll view to the cell
-    UIView *contentViewParent = self;
-    if (![NSStringFromClass([[self.subviews objectAtIndex:0] class]) isEqualToString:kTableViewCellContentView]) {
-        // iOS 7
-        contentViewParent = [self.subviews objectAtIndex:0];
-    }
-    NSArray *cellSubviews = [contentViewParent subviews];
-    [self insertSubview:cellScrollView atIndex:0];
-    for (UIView *subview in cellSubviews) {
-        [self.scrollViewContentView addSubview:subview];
-    }
     
     /**** for Schedule cell ****/
     lblVerticalStrip = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 3, 137)];
@@ -304,6 +288,24 @@ typedef enum {
     
     [self addSubview:btnLocation];
     /**** end for Schedule cell ****/
+    
+    // Create the content view that will live in our scroll view
+    UIView *scrollViewContentView = [[UIView alloc] initWithFrame:CGRectMake([self leftUtilityButtonsWidth], 0, CGRectGetWidth(self.bounds), _height)];
+    scrollViewContentView.backgroundColor = [UIColor whiteColor];
+    [self.cellScrollView addSubview:scrollViewContentView];
+    self.scrollViewContentView = scrollViewContentView;
+    
+    // Add the cell scroll view to the cell
+    UIView *contentViewParent = self;
+    if (![NSStringFromClass([[self.subviews objectAtIndex:0] class]) isEqualToString:kTableViewCellContentView]) {
+        // iOS 7
+        contentViewParent = [self.subviews objectAtIndex:0];
+    }
+    NSArray *cellSubviews = [contentViewParent subviews];
+    [self insertSubview:cellScrollView atIndex:0];
+    for (UIView *subview in cellSubviews) {
+        [self.scrollViewContentView addSubview:subview];
+    }
 }
 
 -(void) scrollTapGesture:(UIGestureRecognizer *) sender {
@@ -379,6 +381,10 @@ typedef enum {
 - (void)scrollToLeft:(inout CGPoint *)targetContentOffset{
     targetContentOffset->x = 0;
     _cellState = kCellStateLeft;
+}
+
+- (void)wayToOriginalScrollView{
+    [cellScrollView setContentOffset:CGPointMake(0, cellScrollView.frame.origin.y) animated:YES];
 }
 
 #pragma mark UIScrollViewDelegate

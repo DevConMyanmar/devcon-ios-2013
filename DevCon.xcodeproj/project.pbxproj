@@ -25,6 +25,9 @@
 		2F0345721802ADE100883A2D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0345711802ADE100883A2D /* libsqlite3.0.dylib */; };
 		2F0345751802AE4900883A2D /* StringTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0345741802AE4900883A2D /* StringTable.m */; };
 		2F0345771802B04D00883A2D /* devcon.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F0345761802B04D00883A2D /* devcon.sqlite */; };
+		2F25A85A1806C48800D51764 /* FavouritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F25A8591806C48700D51764 /* FavouritesViewController.m */; };
+		2F25A85E1806CECF00D51764 /* NameLoginCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F25A85C1806CECF00D51764 /* NameLoginCollectionItem.m */; };
+		2F25A85F1806CECF00D51764 /* NameLoginCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F25A85D1806CECF00D51764 /* NameLoginCollectionItem.xib */; };
 		2F5769C218053628002D0EDA /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5769C118053628002D0EDA /* SWTableViewCell.m */; };
 		2F5769C818055BED002D0EDA /* Star_Unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5769C618055BEC002D0EDA /* Star_Unselect.png */; };
 		2F5769C918055BED002D0EDA /* Star_Unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5769C718055BEC002D0EDA /* Star_Unselect@2x.png */; };
@@ -55,6 +58,8 @@
 		2FF5157118049D2000427B00 /* menu_cell_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF5156F18049D2000427B00 /* menu_cell_bg.png */; };
 		2FF5157218049D2000427B00 /* menu_cell_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF5157018049D2000427B00 /* menu_cell_bg@2x.png */; };
 		2FF515761804A01E00427B00 /* NavBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF515741804A01E00427B00 /* NavBarButton.m */; };
+		2FFA9580180691AE0063B441 /* NavFavBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFA957F180691AE0063B441 /* NavFavBarButton.m */; };
+		2FFA95881806A9450063B441 /* SpeakersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFA95871806A9450063B441 /* SpeakersViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +119,11 @@
 		2F0345731802AE4900883A2D /* StringTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringTable.h; sourceTree = "<group>"; };
 		2F0345741802AE4900883A2D /* StringTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTable.m; sourceTree = "<group>"; };
 		2F0345761802B04D00883A2D /* devcon.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = devcon.sqlite; sourceTree = "<group>"; };
+		2F25A8581806C48700D51764 /* FavouritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouritesViewController.h; sourceTree = "<group>"; };
+		2F25A8591806C48700D51764 /* FavouritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouritesViewController.m; sourceTree = "<group>"; };
+		2F25A85B1806CECF00D51764 /* NameLoginCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameLoginCollectionItem.h; sourceTree = "<group>"; };
+		2F25A85C1806CECF00D51764 /* NameLoginCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameLoginCollectionItem.m; sourceTree = "<group>"; };
+		2F25A85D1806CECF00D51764 /* NameLoginCollectionItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NameLoginCollectionItem.xib; sourceTree = "<group>"; };
 		2F5769C018053628002D0EDA /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
 		2F5769C118053628002D0EDA /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
 		2F5769C618055BEC002D0EDA /* Star_Unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Unselect.png; sourceTree = "<group>"; };
@@ -156,6 +166,10 @@
 		2FF5157018049D2000427B00 /* menu_cell_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_cell_bg@2x.png"; sourceTree = "<group>"; };
 		2FF515741804A01E00427B00 /* NavBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavBarButton.m; sourceTree = "<group>"; };
 		2FF515751804A01E00427B00 /* NavBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavBarButton.h; sourceTree = "<group>"; };
+		2FFA957E180691AE0063B441 /* NavFavBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavFavBarButton.h; sourceTree = "<group>"; };
+		2FFA957F180691AE0063B441 /* NavFavBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavFavBarButton.m; sourceTree = "<group>"; };
+		2FFA95861806A9450063B441 /* SpeakersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakersViewController.h; sourceTree = "<group>"; };
+		2FFA95871806A9450063B441 /* SpeakersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeakersViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +237,7 @@
 		2F03453E1802A72500883A2D /* DevCon */ = {
 			isa = PBXGroup;
 			children = (
+				2FFA95831806A8E20063B441 /* ViewControllers */,
 				2FE239151803FF5700D4A803 /* Models */,
 				2FE239141803FD1A00D4A803 /* CustomUI */,
 				2FE239031803CC7200D4A803 /* Vendor */,
@@ -230,14 +245,8 @@
 				2F0345471802A72500883A2D /* AppDelegate.h */,
 				2F0345481802A72500883A2D /* AppDelegate.m */,
 				2F03454A1802A72500883A2D /* Main.storyboard */,
-				2F03454D1802A72500883A2D /* ViewController.h */,
-				2F03454E1802A72500883A2D /* ViewController.m */,
-				2F5769CB1805662C002D0EDA /* ScheduleDetailViewController.h */,
-				2F5769CC1805662C002D0EDA /* ScheduleDetailViewController.m */,
 				2F0345501802A72500883A2D /* Images.xcassets */,
 				2F03453F1802A72500883A2D /* Supporting Files */,
-				2FE2390D1803D5AD00D4A803 /* MainNavigationViewController.h */,
-				2FE2390E1803D5AD00D4A803 /* MainNavigationViewController.m */,
 			);
 			path = DevCon;
 			sourceTree = "<group>";
@@ -296,6 +305,15 @@
 			path = DevCon;
 			sourceTree = "<group>";
 		};
+		2F25A8541806BDB600D51764 /* FavouritesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2F25A8581806C48700D51764 /* FavouritesViewController.h */,
+				2F25A8591806C48700D51764 /* FavouritesViewController.m */,
+			);
+			name = FavouritesViewController;
+			sourceTree = "<group>";
+		};
 		2FE239031803CC7200D4A803 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,6 +331,8 @@
 			children = (
 				2FF515741804A01E00427B00 /* NavBarButton.m */,
 				2FF515751804A01E00427B00 /* NavBarButton.h */,
+				2FFA957E180691AE0063B441 /* NavFavBarButton.h */,
+				2FFA957F180691AE0063B441 /* NavFavBarButton.m */,
 				2FE23984180411B200D4A803 /* TableCell */,
 			);
 			name = CustomUI;
@@ -360,6 +380,9 @@
 				2FE239881804127D00D4A803 /* ScheduleCell.xib */,
 				2F5769C018053628002D0EDA /* SWTableViewCell.h */,
 				2F5769C118053628002D0EDA /* SWTableViewCell.m */,
+				2F25A85B1806CECF00D51764 /* NameLoginCollectionItem.h */,
+				2F25A85C1806CECF00D51764 /* NameLoginCollectionItem.m */,
+				2F25A85D1806CECF00D51764 /* NameLoginCollectionItem.xib */,
 			);
 			name = TableCell;
 			sourceTree = "<group>";
@@ -371,6 +394,38 @@
 				2FF5155D1804880700427B00 /* GPUImageTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		2FFA95831806A8E20063B441 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2FE2390D1803D5AD00D4A803 /* MainNavigationViewController.h */,
+				2FE2390E1803D5AD00D4A803 /* MainNavigationViewController.m */,
+				2F25A8541806BDB600D51764 /* FavouritesViewController */,
+				2FFA95851806A9190063B441 /* SpeakersViewController */,
+				2FFA95841806A8F40063B441 /* ScheduleViewController */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2FFA95841806A8F40063B441 /* ScheduleViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2F03454D1802A72500883A2D /* ViewController.h */,
+				2F03454E1802A72500883A2D /* ViewController.m */,
+				2F5769CB1805662C002D0EDA /* ScheduleDetailViewController.h */,
+				2F5769CC1805662C002D0EDA /* ScheduleDetailViewController.m */,
+			);
+			name = ScheduleViewController;
+			sourceTree = "<group>";
+		};
+		2FFA95851806A9190063B441 /* SpeakersViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2FFA95861806A9450063B441 /* SpeakersViewController.h */,
+				2FFA95871806A9450063B441 /* SpeakersViewController.m */,
+			);
+			name = SpeakersViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,6 +541,7 @@
 				2FE23923180406E500D4A803 /* location.png in Resources */,
 				2FE23924180406E500D4A803 /* location@2x.png in Resources */,
 				2FE23925180406E500D4A803 /* menu.png in Resources */,
+				2F25A85F1806CECF00D51764 /* NameLoginCollectionItem.xib in Resources */,
 				2FE23926180406E500D4A803 /* menu@2x.png in Resources */,
 				2F5769D418057E10002D0EDA /* temp_profile_cover.png in Resources */,
 				2F0345431802A72500883A2D /* InfoPlist.strings in Resources */,
@@ -510,9 +566,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F25A85A1806C48800D51764 /* FavouritesViewController.m in Sources */,
 				2FE239181803FF8400D4A803 /* ObjSchedule.m in Sources */,
 				2FE2391B180404EC00D4A803 /* ObjSpeaker.m in Sources */,
 				2FE239871804126500D4A803 /* ScheduleCell.m in Sources */,
+				2FFA9580180691AE0063B441 /* NavFavBarButton.m in Sources */,
 				2FF515681804933200427B00 /* UIImage+StackBlur.m in Sources */,
 				2F5769CD1805662C002D0EDA /* ScheduleDetailViewController.m in Sources */,
 				2F03454F1802A72500883A2D /* ViewController.m in Sources */,
@@ -521,6 +579,8 @@
 				2F0345751802AE4900883A2D /* StringTable.m in Sources */,
 				2FE2390B1803CD4500D4A803 /* PulldownMenu.m in Sources */,
 				2F5769C218053628002D0EDA /* SWTableViewCell.m in Sources */,
+				2FFA95881806A9450063B441 /* SpeakersViewController.m in Sources */,
+				2F25A85E1806CECF00D51764 /* NameLoginCollectionItem.m in Sources */,
 				2FE2392B1804093D00D4A803 /* ObjLocation.m in Sources */,
 				2F0345451802A72500883A2D /* main.m in Sources */,
 				2FE2390F1803D5AD00D4A803 /* MainNavigationViewController.m in Sources */,

@@ -9,5 +9,5 @@
 #import "ObjSpeaker.h"
 
 @implementation ObjSpeaker
-@synthesize idx,strSpeakerName,strEmail,strDescription;
+@synthesize idx,strSpeakerName,strEmail,strDescription,strJobTitle,strCompany,strProfilePic,strProfileCoverPic;
 @end
