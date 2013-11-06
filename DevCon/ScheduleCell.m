@@ -30,10 +30,10 @@
         
         [self addSubview:lblTitle];
         
-        lblTime = [[UILabel alloc]initWithFrame:CGRectMake(250, 57, 80, 23)];
+        lblTime = [[UILabel alloc]initWithFrame:CGRectMake(230, 57, 80, 23)];
         lblTime.backgroundColor = [UIColor clearColor];
         //lblTime.font = [UIFont boldSystemFontOfSize:15];
-        lblTime.font = [UIFont fontWithName:@"AvenirNext-Bold" size:15.0f];
+        lblTime.font = [UIFont fontWithName:@"AvenirNextCondensed-Bold" size:15.0f];
         lblTime.textColor = [UIColor colorWithRed:221/255.f green:126/255.f blue:55/255.f alpha:1];
         [self addSubview:lblTime];
         

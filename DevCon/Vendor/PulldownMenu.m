@@ -122,7 +122,7 @@ handleColor;
     [handle setTranslatesAutoresizingMaskIntoConstraints:NO];
     [menuList setTranslatesAutoresizingMaskIntoConstraints:NO];
     menuList.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    menuList.separatorColor = [UIColor whiteColor];
+    menuList.separatorColor = [UIColor colorWithRed:0.38f green:0.38f blue:0.38f alpha:1.00f];
     menuList.alwaysBounceVertical = NO;
     if ([menuList respondsToSelector:@selector(separatorInset)]) {
         [menuList setSeparatorInset:UIEdgeInsetsZero];
