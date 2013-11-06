@@ -48,7 +48,7 @@
     pulldownMenu.cellSelectedColor = [UIColor colorWithHexString:@"586d73"];
     
     [pulldownMenu loadMenu];
-    
+    //[self.navigationController.navigationItem.backBarButtonItem setTintColor:[UIColor colorWithHexString:@"D28029"]];
 }
 
 -(void)menuItemSelected:(NSIndexPath *)indexPath

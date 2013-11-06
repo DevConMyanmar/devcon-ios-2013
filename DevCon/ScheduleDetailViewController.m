@@ -14,6 +14,7 @@
 //#import "UIImageView+AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "FXBlurView.h"
+#import "UIColor+Expanded.h"
 @interface ScheduleDetailViewController ()
 {
     IBOutlet UIImageView * imgViewProfileCover;
@@ -55,6 +56,9 @@
     UIBarButtonItem * favButton = [[UIBarButtonItem alloc] initWithCustomView:btnFav];
     self.navigationItem.rightBarButtonItem = favButton;
     
+    
+    self.navigationController.navigationItem.backBarButtonItem.tintColor = [UIColor colorWithHexString:@"D28029"];
+    
 }
 
 - (void)onFav:(NavFavBarButton *)sender{
@@ -83,7 +87,7 @@
 }
 
 - (void)loadTheViewWith:(ObjSchedule *)obj{
-    UIImage * imageProfileDefault = [UIImage imageNamed:@"zawym.png"];
+    UIImage * imageProfileDefault = [UIImage imageNamed:@"img_profile_default"];
     //[imgViewProfileCover setImageWithURL:[NSURL URLWithString:obj.objSpeaker.strProfilePic] placeholderImage:imageProfileDefault];
     //mgViewProfileCover.image = [imgViewProfileCover.image stackBlur:10];
     /*[imgViewProfileCover setImageWithURLRequest:[NSURL URLWithString:obj.objSpeaker.strProfilePic] placeholderImage:imageProfileDefault success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {

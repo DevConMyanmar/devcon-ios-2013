@@ -13,6 +13,7 @@
 #import "Utility.h"
 #import "ObjScheduleSpeaker.h"
 #import "SVProgressHUD.h"
+#import "UIColor+Expanded.h"
 @implementation AppDelegate
 @synthesize databasePath,db;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -20,7 +21,7 @@
     // Override point for customization after application launch.
     self.db = [[DBManager alloc] init];
 	[self.db checkAndCreateDatabase];
-    
+    self.window.tintColor = [UIColor colorWithHexString:@"D28029"];
     return YES;
 }
 							
