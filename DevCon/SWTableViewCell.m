@@ -134,9 +134,9 @@ typedef enum {
     timeTextLabelFrame.origin.y = (([[self class] heightForCellWithPost:objSchedule]+ 81)/2)- timeTextLabelFrame.size.height;
     lblTime.frame = timeTextLabelFrame;
     
-    lblSpeaker.frame = CGRectMake(17, (lblTitle.frame.origin.y + lblTitle.frame.size.height) + 3, 206, 23);
+    lblSpeaker.frame = CGRectMake(20, (lblTitle.frame.origin.y + lblTitle.frame.size.height) - 5, 206, 23);
     
-    btnLocation.frame = CGRectMake(17, (lblSpeaker.frame.origin.y + lblSpeaker.frame.size.height) + 3, 150, 30);
+    btnLocation.frame = CGRectMake(20, (lblSpeaker.frame.origin.y + lblSpeaker.frame.size.height), 150, 30);
     
     lblTitle.text = obj.strTitle;
     lblTime.text = [obj getSystemTimeOnlyByDate];
@@ -262,29 +262,29 @@ typedef enum {
     
     [self addSubview:lblVerticalStrip];
     
-    lblTitle = [[UILabel alloc]initWithFrame:CGRectMake(17, 12, 206, 50)];
+    lblTitle = [[UILabel alloc]initWithFrame:CGRectMake(20, 12, 206, 50)];
     lblTitle.backgroundColor = [UIColor clearColor];
-    lblTitle.font = [UIFont fontWithName:@"Avenir Next Medium" size:16.0f];
+    lblTitle.font = [UIFont fontWithName:@"Avenir Next Bold" size:16.0f];
     lblTitle.textColor = [UIColor colorWithRed:0/255.f green:91/255.f blue:113/255.f alpha:1];
     lblTitle.numberOfLines = 0;
     
     [self addSubview:lblTitle];
     
-    lblTime = [[UILabel alloc]initWithFrame:CGRectMake(250, 57, 80, 23)];
+    lblTime = [[UILabel alloc]initWithFrame:CGRectMake(240, 87, 80, 54)];
     lblTime.backgroundColor = [UIColor clearColor];
     //lblTime.font = [UIFont boldSystemFontOfSize:15];
-    lblTime.font = [UIFont fontWithName:@"AvenirNext-Bold" size:15.0f];
+    lblTime.font = [UIFont fontWithName:@"AvenirNextCondensed-Bold" size:18.0f];
     lblTime.textColor = [UIColor colorWithRed:221/255.f green:126/255.f blue:55/255.f alpha:1];
     [self addSubview:lblTime];
     
-    lblSpeaker = [[UILabel alloc]initWithFrame:CGRectMake(17, (lblTitle.frame.origin.y + lblTitle.frame.size.height) + 3, 206, 23)];
+    lblSpeaker = [[UILabel alloc]initWithFrame:CGRectMake(20, (lblTitle.frame.origin.y + lblTitle.frame.size.height) + 3, 206, 23)];
     lblSpeaker.backgroundColor = [UIColor clearColor];
     lblSpeaker.font = [UIFont fontWithName:@"Avenir Next Medium" size:15.0f];
     lblSpeaker.textColor = [UIColor colorWithRed:97/255.f green:87/255.f blue:87/255.f alpha:1];
     [self addSubview:lblSpeaker];
     
     btnLocation = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnLocation.frame = CGRectMake(17, (lblSpeaker.frame.origin.y + lblSpeaker.frame.size.height) + 3, 150, 30);
+    btnLocation.frame = CGRectMake(20, (lblSpeaker.frame.origin.y + lblSpeaker.frame.size.height) + 3, 150, 30);
     //btnLocation.titleLabel = lblSpeaker;
     btnLocation.titleLabel.font = [UIFont fontWithName:@"Avenir Next Medium" size:15.0f];
     btnLocation.titleLabel.textColor = [UIColor colorWithRed:221/255.f green:126/255.f blue:55/255.f alpha:1];
