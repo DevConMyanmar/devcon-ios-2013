@@ -9,5 +9,5 @@
 #import "ObjLocation.h"
 
 @implementation ObjLocation
-@synthesize idx,lat,log,strName,strColorHex,strDescription;
+@synthesize idx,lat,log,strName,strColorHex,strDescription,strServerId;
 @end

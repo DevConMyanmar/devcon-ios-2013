@@ -43,6 +43,7 @@
 @property (nonatomic) UIFont *cellFont;
 @property (nonatomic) float cellHeight;
 @property (nonatomic) BOOL fullyOpen;
+- (BOOL)getFullyOpen;
 
 - (id)initWithNavigationController:(UINavigationController *)navigationController;
 - (id)initWithView:(UIView *)view;

@@ -15,10 +15,12 @@
 @interface MainNavigationViewController ()
 {
     IBOutlet UINavigationController * navMainController;
+    BOOL isPullOpen;
 }
 @end
 
 @implementation MainNavigationViewController
+@synthesize owner;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -81,11 +83,19 @@
     if (open)
     {
         NSLog(@"Pull down menu open!");
+        isPullOpen = open;
+        
     }
     else
     {
         NSLog(@"Pull down menu closed!");
+        isPullOpen = open;
     }
+    [owner pullDownAnimated:open];
+}
+
+- (BOOL) getPullMenuBOOl{
+    return isPullOpen;
 }
 
 - (void)didReceiveMemoryWarning

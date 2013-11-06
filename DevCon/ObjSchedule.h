@@ -20,8 +20,16 @@
 @property (nonatomic,strong) NSString * strTitle;
 @property (nonatomic,strong) NSString * strDescription;
 @property (nonatomic,strong) NSString * strSpeakerName;
+@property (nonatomic,strong) NSString * strServerId;
+@property (nonatomic, strong) NSString * strSpeakerId;
+@property (nonatomic, strong) NSString * strLocationId;
+@property (nonatomic, strong) NSMutableArray * arrSpeaker;
 @property (nonatomic,strong) ObjSpeaker * objSpeaker;
 @property (nonatomic,strong) ObjLocation * objLocation;
 - (ObjLocation *) getLocation;
 - (ObjSpeaker *) getSpeaker;
+- (ObjLocation *) getLocationByStringID;
+- (NSMutableArray *) getScheduleSpeaker;
+- (NSString *) getSystemTimeOnlyByDate;
+- (NSString *) getSystemDateOnlyByDate;
 @end

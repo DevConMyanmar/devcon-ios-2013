@@ -11,6 +11,9 @@
 #import "Utility.h"
 #import "NavFavBarButton.h"
 #import "AppDelegate.h"
+//#import "UIImageView+AFNetworking.h"
+#import "UIImageView+WebCache.h"
+#import "FXBlurView.h"
 @interface ScheduleDetailViewController ()
 {
     IBOutlet UIImageView * imgViewProfileCover;
@@ -27,6 +30,7 @@
     IBOutlet UIScrollView * scrollDetail;
     NavFavBarButton *btnFav;
 }
+@property (nonatomic, weak) IBOutlet FXBlurView *blurView;
 @end
 
 @implementation ScheduleDetailViewController
@@ -79,15 +83,34 @@
 }
 
 - (void)loadTheViewWith:(ObjSchedule *)obj{
-    UIImage * image = [UIImage imageNamed:@"temp_profile"];
-    imgViewProfileCover.image = [image stackBlur:10];
+    UIImage * imageProfileDefault = [UIImage imageNamed:@"zawym.png"];
+    //[imgViewProfileCover setImageWithURL:[NSURL URLWithString:obj.objSpeaker.strProfilePic] placeholderImage:imageProfileDefault];
+    //mgViewProfileCover.image = [imgViewProfileCover.image stackBlur:10];
+    /*[imgViewProfileCover setImageWithURLRequest:[NSURL URLWithString:obj.objSpeaker.strProfilePic] placeholderImage:imageProfileDefault success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        imgViewProfileCover.image = [image stackBlur:10];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+    }];*/
+     
     
     //imgViewProfileCover.image = image;
+    imgViewProfileCover.image = [imageProfileDefault stackBlur:10];
+    [imgViewProfileCover setImageWithURL:[NSURL URLWithString:obj.objSpeaker.strProfilePic] placeholderImage:nil options:SDWebImageProgressiveDownload progress:^(NSUInteger receivedSize, long long expectedSize)
+     {
+
+     }
+    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType)
+     {
+        
+         //imgViewProfileCover.image = [imageProfileDefault stackBlur:10];
+         [self setCoverPhoto:image];
+     }];
     
-    UIImage * image2 = [UIImage imageNamed:@"temp_profile"];
+    
+    UIImage * image2 = [UIImage imageNamed:@"img_profile_default"];
+    [imgViewProfile setImageWithURL:[NSURL URLWithString:obj.objSpeaker.strProfilePic] placeholderImage:image2];
     [imgViewProfile setImage:image2];
     [Utility makeCornerRadius:imgViewProfile andRadius:imgViewProfile.frame.size.width/2];
-    lblProfileName.text = obj.strSpeakerName;
+    lblProfileName.text = obj.objSpeaker.strSpeakerName;
     
     float titleHeight = [self heightOfViewWithPureHeight:obj.strTitle andFontName:@"Avenir Next Medium" andFontSize:16.0f andMinimumSize:30 andWidth:299];
     CGRect newTitleFrame = lblTitle.frame;
@@ -119,16 +142,16 @@
     newBgFrame.size.height += newTitleFrame.size.height;
     lblBgTitle.frame = newBgFrame;
     
-    NSDate * date = [NSDate dateWithTimeIntervalSince1970:obj.timetick];
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"MMMM dd,yyyy"];
-    NSString * strDate = [dateFormatter stringFromDate:date];
-    lblDate.text =strDate;
+    //NSDate * date = [NSDate dateWithTimeIntervalSince1970:obj.timetick];
+    //NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
+    //[dateFormatter setDateFormat:@"MMMM dd,yyyy"];
+    //NSString * strDate = [dateFormatter stringFromDate:date];
+    lblDate.text =[obj getSystemDateOnlyByDate];
     
-    NSDateFormatter * dateFormatter2 = [[NSDateFormatter alloc]init];
-    [dateFormatter2 setDateFormat:@"HH:mma"];
-    NSString * strTime = [dateFormatter2 stringFromDate:date];
-    lblTime.text =strTime;
+    //NSDateFormatter * dateFormatter2 = [[NSDateFormatter alloc]init];
+    //[dateFormatter2 setDateFormat:@"HH:mma"];
+    //NSString * strTime = [dateFormatter2 stringFromDate:date];
+    lblTime.text =[obj getSystemTimeOnlyByDate];
     
     CGRect newTextViewFrame = txtViewDescription.frame;
     newTextViewFrame.origin.y = newSperator2Frame.origin.y + newSperator2Frame.size.height + 7;
@@ -138,6 +161,13 @@
     txtViewDescription.text = obj.strDescription;
     
     [scrollDetail setContentSize:CGSizeMake(320, txtViewDescription.frame.origin.y + txtViewDescription.frame.size.height)];
+}
+
+- (void) setCoverPhoto:(UIImage *)image{
+    UIImage * imagePro = [[UIImage alloc] init];
+    imagePro = image;
+    [imgViewProfileCover setImage:imagePro];
+    self.blurView.blurRadius = 10;
 }
 
 - (CGFloat)heightOfViewWithPureHeight:(NSString *)str andFontName:(NSString *)strFont andFontSize:(float)fSize andMinimumSize:(float)mSize andWidth:(float)width{

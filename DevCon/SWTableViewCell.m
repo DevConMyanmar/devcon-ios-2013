@@ -8,6 +8,7 @@
 
 #import "SWTableViewCell.h"
 #import "UIColor+Expanded.h"
+#import <QuartzCore/QuartzCore.h>
 #define kUtilityButtonsWidthMax 260
 #define kUtilityButtonWidthDefault 90
 
@@ -138,10 +139,13 @@ typedef enum {
     btnLocation.frame = CGRectMake(17, (lblSpeaker.frame.origin.y + lblSpeaker.frame.size.height) + 3, 150, 30);
     
     lblTitle.text = obj.strTitle;
-    lblTime.text = obj.strTime;
-    lblSpeaker.text = obj.strSpeakerName;
+    lblTime.text = [obj getSystemTimeOnlyByDate];
+    [obj getScheduleSpeaker];
+    [obj getSpeaker];
+    lblSpeaker.text = obj.objSpeaker.strSpeakerName;
     
-    ObjLocation * objLocation= [obj getLocation];
+    ObjLocation * objLocation= [obj getLocationByStringID];
+    NSLog(@"obj location id %@",objLocation.strServerId);
     //NSLog(@"schedule str color hex %@ and location id %d",objLocation.strColorHex,obj.locationId);
     lblVerticalStrip.backgroundColor = [UIColor colorWithHexString:objLocation.strColorHex];
     //NSLog(@"loadTheView height:%.2f",lblTitle.frame.size.height);
@@ -217,6 +221,9 @@ typedef enum {
 }
 
 - (void)initializer {
+    self.mainView.layer.cornerRadius = 10;
+    self.mainView.layer.masksToBounds = YES;
+    self.mainView = self;
     // Set up scroll view that will host our cell content
     if (cellScrollView == nil) {
         cellScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), _height)];
@@ -388,7 +395,6 @@ typedef enum {
 }
 
 #pragma mark UIScrollViewDelegate
-
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     switch (_cellState) {
         case kCellStateCenter:

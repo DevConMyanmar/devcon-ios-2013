@@ -13,10 +13,15 @@
 #import "ObjSpeaker.h"
 #import "AppDelegate.h"
 #import "Utility.h"
+#import "UIImageView+AFNetworking.h"
 @interface SpeakersViewController ()
 {
     IBOutlet UICollectionView * empNameCollectionView;
     NSArray * arrEmpList;
+    
+    NavBarButton *btnBack;
+    MainNavigationViewController * mainNav;
+
 }
 @end
 static NSString * const kCellReuseIdentifier = @"collectionViewCell";
@@ -44,7 +49,7 @@ static NSString * const kCellReuseIdentifier = @"collectionViewCell";
     lblName.textAlignment = NSTextAlignmentCenter;
     lblName.textColor = [UIColor colorWithHexString:@"005b71"];
     self.navigationItem.titleView = lblName;
-    NavBarButton *btnBack = [[NavBarButton alloc] init];
+    btnBack = [[NavBarButton alloc] init];
     [btnBack addTarget:self action:@selector(animateDropDown:) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithCustomView:btnBack];
@@ -65,18 +70,54 @@ static NSString * const kCellReuseIdentifier = @"collectionViewCell";
     
     [empNameCollectionView setBackgroundColor:[UIColor colorWithHexString:@"eeeeee"]];
     
+    mainNav = (MainNavigationViewController *)self.navigationController;
+    mainNav.owner = self;
+    
     //self.edgesForExtendedLayout = UIRectEdgeNone;
     //tbl.contentInset = UIEdgeInsetsMake(0, 0, -20, 0);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTheView) name:@"refreshScheduleView" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [self refreshTheView];
+}
+
+- (void)refreshTheView{
     AppDelegate * delegate = [[UIApplication sharedApplication]delegate];
     arrEmpList = [delegate.db getAllSpeakers];
+    [empNameCollectionView reloadData];
 }
 
 - (void)animateDropDown:(NavBarButton *)btn{
-    MainNavigationViewController * mainNav = (MainNavigationViewController *)self.navigationController;
+    BOOL isOpen = [mainNav getPullMenuBOOl];
+    NSLog(@"menu open %d",isOpen);
+    if (isOpen) {
+        //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(0);
+        }];
+    }
+    else{
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(M_PI);
+        }];
+    }
     [mainNav animateDropDown];
+}
+
+-(void)pullDownAnimated:(BOOL)open{
+    if (open) {
+        //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(3.14159265358979323846264338327950288);
+        }];
+    }
+    else{
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(0);
+        }];
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -112,15 +153,16 @@ static NSString * const kCellReuseIdentifier = @"collectionViewCell";
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
     [titleLabel setText:[NSString stringWithFormat:@"%@",emp.strSpeakerName]];
     
-    UILabel *titlJobTitLabel = (UILabel *)[cell viewWithTag:88];
+    UILabel *titlJobTitLabel = (UILabel *)[cell viewWithTag:77];
     [titlJobTitLabel setText:[NSString stringWithFormat:@"%@",emp.strJobTitle]];
     
-    UILabel *titlCompanyLabel = (UILabel *)[cell viewWithTag:77];
-    [titlCompanyLabel setText:[NSString stringWithFormat:@"%@",emp.strCompany]];
+    //UILabel *titlCompanyLabel = (UILabel *)[cell viewWithTag:77];
+   // [titlCompanyLabel setText:[NSString stringWithFormat:@"%@",emp.strCompany]];
     
     UIImageView * imgView = (UIImageView *)[cell viewWithTag:99];
     [Utility makeCornerRadius:imgView andRadius:imgView.frame.size.width/2];
-    [imgView setImage:[UIImage imageNamed:@"temp_profile"]];
+    //[imgView setImage:[UIImage imageNamed:@"temp_profile"]];
+    [imgView setImageWithURL:[NSURL URLWithString:emp.strProfilePic] placeholderImage:[UIImage imageNamed:@"img_profile_default"]];
     
     //[Utility makeBorder:cell andWidth:0.5 andColor:[UIColor grayColor]];
     [Utility makeCornerRadius:cell andRadius:4];

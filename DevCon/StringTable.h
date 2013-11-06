@@ -14,5 +14,7 @@
 extern NSString * const DBNAME;
 extern NSString * const APP_TITLE;
 extern NSString * const APP_ID;
-
+extern NSString * const SPEAKER_LINK;
+extern NSString * const LOCATION_LINK;
+extern NSString * const SCHEDULES_LINK;
 @end

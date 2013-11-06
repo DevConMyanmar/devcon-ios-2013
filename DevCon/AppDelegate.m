@@ -7,7 +7,12 @@
 //
 
 #import "AppDelegate.h"
-
+#import "devconAPIClient.h"
+#import "ObjSpeaker.h"
+#import "StringTable.h"
+#import "Utility.h"
+#import "ObjScheduleSpeaker.h"
+#import "SVProgressHUD.h"
 @implementation AppDelegate
 @synthesize databasePath,db;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -39,11 +44,223 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [self syncSpeaker];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)syncSpeaker{
+    [SVProgressHUD show];
+    //[SVProgressHUD appearance].hudBackgroundColor = [UIColor whiteColor];
+    //[SVProgressHUD appearance].hudRingBackgroundColor = [UIColor darkGrayColor];
+    [[devconAPIClient sharedClient] getPath:[NSString stringWithFormat:@"%@",SPEAKER_LINK] parameters:nil success:^(AFHTTPRequestOperation *operation, id json) {
+        NSLog(@"successfully return!!! %@",json);
+        NSDictionary * dics = (NSDictionary *)json;
+        
+            NSArray *  arr = (NSArray *)dics;
+        
+            for(NSInteger i=0;i<[arr count];i++){
+                NSDictionary * dicNewsFeed = [arr objectAtIndex:i];
+                NSDictionary * dicSpeaker = [dicNewsFeed objectForKey:@"speaker"];
+                ObjSpeaker * objSpeaker = [[ObjSpeaker alloc]init];
+                if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"speaker_id"] shouldCleanWhiteSpace:YES])
+                objSpeaker.strServerId = [dicSpeaker objectForKey:@"speaker_id"];
+                else objSpeaker.strServerId = @"";
+                
+                if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"speaker_name"] shouldCleanWhiteSpace:YES])
+                    objSpeaker.strSpeakerName = [dicSpeaker objectForKey:@"speaker_name"];
+                else objSpeaker.strSpeakerName = @"";
+                
+                if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"title"] shouldCleanWhiteSpace:YES])
+                    objSpeaker.strJobTitle = [dicSpeaker objectForKey:@"title"];
+                else objSpeaker.strJobTitle = @"";
+                
+                if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"email"] shouldCleanWhiteSpace:YES])
+                    objSpeaker.strEmail = [dicSpeaker objectForKey:@"email"];
+                else objSpeaker.strEmail = @"";
+                
+                if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"biography"] shouldCleanWhiteSpace:YES])
+                    objSpeaker.strDescription = [dicSpeaker objectForKey:@"biography"];
+                else objSpeaker.strDescription = @"";
+                
+                if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"speaker_photo"] shouldCleanWhiteSpace:YES])
+                    objSpeaker.strProfilePic = [dicSpeaker objectForKey:@"speaker_photo"];
+                else objSpeaker.strProfilePic = @"";
+                
+                [self saveORupdateSpeaker:objSpeaker];
+                
+            }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshSpeakerView" object:nil];
+        [SVProgressHUD dismiss];
+        [self syncLocation];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error %@",error);
+        //[SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",error]];
+    }];
+}
+
+- (void)syncLocation{
+    [SVProgressHUD show];
+    //[SVProgressHUD appearance].hudBackgroundColor = [UIColor whiteColor];
+    //[SVProgressHUD appearance].hudRingBackgroundColor = [UIColor darkGrayColor];
+    [[devconAPIClient sharedClient] getPath:[NSString stringWithFormat:@"%@",LOCATION_LINK] parameters:nil success:^(AFHTTPRequestOperation *operation, id json) {
+        NSLog(@"successfully return!!! %@",json);
+        NSDictionary * dics = (NSDictionary *)json;
+        
+        NSArray *  arr = (NSArray *)dics;
+        
+        for(NSInteger i=0;i<[arr count];i++){
+            NSDictionary * dicNewsFeed = [arr objectAtIndex:i];
+            NSDictionary * dicSpeaker = [dicNewsFeed objectForKey:@"location"];
+            ObjLocation * obj = [[ObjLocation alloc]init];
+            if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"location_id"] shouldCleanWhiteSpace:YES])
+                obj.strServerId = [dicSpeaker objectForKey:@"location_id"];
+            else obj.strServerId = @"";
+            
+            if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"name"] shouldCleanWhiteSpace:YES])
+                obj.strName = [dicSpeaker objectForKey:@"name"];
+            else obj.strName = @"";
+            
+            if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"desc"] shouldCleanWhiteSpace:YES])
+                obj.strDescription = [dicSpeaker objectForKey:@"desc"];
+            else obj.strDescription = @"";
+            
+            obj.log = [[dicSpeaker objectForKey:@"long"] doubleValue];
+            obj.lat = [[dicSpeaker objectForKey:@"lat"] doubleValue];
+            
+            /*if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"long"] shouldCleanWhiteSpace:YES])
+                obj.log = [[dicSpeaker objectForKey:@"long"] doubleValue];
+            else obj.log = 0;
+            
+            if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"lat"] shouldCleanWhiteSpace:YES])
+                obj.lat = [[dicSpeaker objectForKey:@"lat"] doubleValue];
+            else obj.lat = 0;*/
+            
+            if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"color"] shouldCleanWhiteSpace:YES])
+                obj.strColorHex = [dicSpeaker objectForKey:@"color"];
+            else obj.strColorHex = @"";
+            
+            [self saveORupdateLocation:obj];
+            [SVProgressHUD dismiss];
+        }
+        [self syncSchedule];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error %@",error);
+        //[SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",error]];
+    }];
+}
+
+- (void)syncSchedule{
+    [SVProgressHUD show];
+    //[SVProgressHUD appearance].hudBackgroundColor = [UIColor whiteColor];
+    //[SVProgressHUD appearance].hudRingBackgroundColor = [UIColor darkGrayColor];
+    [[devconAPIClient sharedClient] getPath:[NSString stringWithFormat:@"%@",SCHEDULES_LINK] parameters:nil success:^(AFHTTPRequestOperation *operation, id json) {
+        NSLog(@"successfully return!!! %@",json);
+        NSDictionary * dics = (NSDictionary *)json;
+        
+        NSArray *  arr = (NSArray *)dics;
+        
+        for(NSInteger i=0;i<[arr count];i++){
+            NSDictionary * dicNewsFeed = [arr objectAtIndex:i];
+            NSDictionary * dicSpeaker = [dicNewsFeed objectForKey:@"schedule"];
+            ObjSchedule * obj = [[ObjSchedule alloc]init];
+            if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"schedule_id"] shouldCleanWhiteSpace:YES])
+                obj.strServerId = [dicSpeaker objectForKey:@"schedule_id"];
+            else obj.strServerId = @"";
+            
+            if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"title"] shouldCleanWhiteSpace:YES])
+                obj.strTitle = [dicSpeaker objectForKey:@"title"];
+            else obj.strTitle = @"";
+            
+            if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"description"] shouldCleanWhiteSpace:YES])
+                obj.strDescription = [dicSpeaker objectForKey:@"description"];
+            else obj.strDescription = @"";
+            
+            if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"session_time"] shouldCleanWhiteSpace:YES])
+                obj.strTime = [dicSpeaker objectForKey:@"session_time"];
+            else obj.strTime = @"";
+            
+            /*if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"speaker_id"] shouldCleanWhiteSpace:YES])
+            {
+                 obj.strSpeakerId = [dicSpeaker objectForKey:@"speaker_id"];
+                
+            }
+            else obj.strSpeakerId = 0;*/
+            /*if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"speaker_ids"] shouldCleanWhiteSpace:YES])
+            {
+                NSArray * arrSId = [dicSpeaker objectForKey:@"speaker_ids"];
+                NSLog(@"speaker arr count %d",[arrSId count]);
+                for(NSInteger y=0;y<[arrSId count];y++){
+                    NSString * str = [arrSId objectAtIndex:y];
+                    ObjScheduleSpeaker * objSchSpeaker = [[ObjScheduleSpeaker alloc] init];
+                    objSchSpeaker.strScheduleId = obj.strServerId;
+                    objSchSpeaker.strSpeakerId = str;
+                    [self saveORupdateScheduleSpeaker:objSchSpeaker];
+                    NSLog(@"speaker id%@",str);
+                }
+            }*/
+            //else obj.strSpeakerId = 0;
+            NSArray * arrSId = [dicSpeaker objectForKey:@"speaker_ids"];
+            NSLog(@"speaker arr count %d",[arrSId count]);
+            for(NSInteger y=0;y<[arrSId count];y++){
+                NSString * str = [arrSId objectAtIndex:y];
+                ObjScheduleSpeaker * objSchSpeaker = [[ObjScheduleSpeaker alloc] init];
+                objSchSpeaker.strScheduleId = obj.strServerId;
+                objSchSpeaker.strSpeakerId = str;
+                [self saveORupdateScheduleSpeaker:objSchSpeaker];
+                NSLog(@"speaker id%@",str);
+            }
+            
+            if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"location"] shouldCleanWhiteSpace:YES])
+            {
+                obj.strLocationId = [dicSpeaker objectForKey:@"location"];
+                
+            }
+            else obj.strLocationId = 0;
+            
+            [self saveORupdateSchedule:obj];
+            
+            
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshScheduleView" object:nil];
+        [SVProgressHUD dismiss];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error %@",error);
+        //[SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",error]];
+    }];
+}
+
+- (void) saveORupdateSpeaker:(ObjSpeaker *)obj{
+    int i=[self.db checkSpeakerBy:obj.strServerId];
+               if(i==0)
+                   [self.db insertSpeakerBy:obj];
+               else [self.db updateSpeakerBy:obj];
+}
+
+- (void) saveORupdateLocation:(ObjLocation *)obj{
+    int i=[self.db checkLocationBy:obj.strServerId];
+    if(i==0)
+        [self.db insertLocationBy:obj];
+    else [self.db updateLocationBy:obj];
+}
+
+- (void) saveORupdateSchedule:(ObjSchedule *)obj{
+    int i=[self.db checkScheduleBy:obj.strServerId];
+    if(i==0)
+        [self.db insertScheduleBy:obj];
+    else [self.db updateScheduleBy:obj];
+}
+
+- (void) saveORupdateScheduleSpeaker:(ObjScheduleSpeaker *)obj{
+    int i=[self.db checkScheduleSpeakerBy:obj.strSpeakerId andSchedule:obj.strScheduleId];
+    if(i==0)
+        [self.db insertScheduleSpeakerBy:obj];
+    else [self.db updateScheduleSpeakerBy:obj];
 }
 
 @end

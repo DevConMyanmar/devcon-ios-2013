@@ -15,4 +15,5 @@
 @property (nonatomic,retain) NSString * strName;
 @property (nonatomic,retain) NSString * strColorHex;
 @property (nonatomic,retain) NSString * strDescription;
+@property (nonatomic,retain) NSString * strServerId;
 @end

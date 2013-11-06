@@ -14,5 +14,7 @@
 NSString * const DBNAME	= @"devcon.sqlite";
 NSString * const APP_TITLE = @"DevCon";
 NSString * const APP_ID = @"---";
-
+NSString * const SPEAKER_LINK = @"api/v1/speakers";
+NSString * const LOCATION_LINK = @"api/v1/locations";
+NSString * const SCHEDULES_LINK = @"api/v1/schedules";
 @end

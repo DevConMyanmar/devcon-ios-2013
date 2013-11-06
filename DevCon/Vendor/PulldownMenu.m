@@ -9,6 +9,7 @@
 #import "GPUImage.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+StackBlur.h"
+#import "FXBlurView.h"
 @implementation PulldownMenu
 
 @synthesize menuList,
@@ -161,6 +162,12 @@ handleColor;
     
     cell.backgroundColor = [UIColor clearColor];
     UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 58)];
+    FXBlurView * blurView = [[FXBlurView alloc] initWithFrame:CGRectMake(0, 0, 320, 58)];
+    blurView.blurRadius = 10;
+    blurView.backgroundColor = [UIColor whiteColor];
+    blurView.tintColor = [UIColor clearColor];
+    [blurView setAlpha:0.95];
+    [blurView addSubview:imgView];
     /*UIImage * image = [Utility drawImageWithColor:[UIColor blackColor]];
     GPUImageGaussianBlurFilter *stillImageFilter2 = [[GPUImageGaussianBlurFilter alloc] init];
     UIImage *quickFilteredImage = [stillImageFilter2 imageByFilteringImage:image];
@@ -168,12 +175,29 @@ handleColor;
     [imgView setAlpha:0.7];
     [cell addSubview:imgView];*/
     //UIImage * image = [Utility drawImageWithColor:[UIColor redColor]];
-    UIImage * image = [UIImage imageNamed:@"menu_cell_bg"];
-
-    imgView.image=[image stackBlur:15];
+    UIImage * image = [UIImage imageNamed:@"menu_cell_bg.jpg"];
+    //imgView.image=[image stackBlur:15];
+    //[imgView setAlpha:0.95];
+    //imgView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    //cell.imageView = imgView;
+    //[cell addSubview:imgView];
+    //cell.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    imgView.image= [image stackBlur:20];
     [imgView setAlpha:0.95];
+    imgView.opaque = NO;
+    //cell.backgroundView = blurView;
     
-    [cell addSubview:imgView];
+    //[cell.layer insertSublayer:imgView.layer atIndex:1];
+    /*UIColor *barColour = [UIColor blueColor];
+    
+    UIView *colourView = [[UIView alloc] initWithFrame:CGRectMake(0.f, -20.f, 320.f, 64.f)];
+    colourView.opaque = NO;
+    colourView.alpha = .5f;
+    //colourView.backgroundColor = barColour;
+    
+    cell.backgroundColor = barColour;
+    
+    [cell.layer insertSublayer:colourView.layer atIndex:1];*/
     
     //cell setO
     UIView *cellSelectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
@@ -194,8 +218,9 @@ handleColor;
     lbl.text = [menuItems objectAtIndex:indexPath.item];
     lbl.textColor = cellTextColor;
     lbl.textAlignment = NSTextAlignmentCenter;
+    //[cell addSubview:imgView];
+    [cell addSubview:imgView];
     [cell addSubview:lbl];
-    
     
     return cell;
 }
@@ -257,6 +282,12 @@ handleColor;
                          [delegate pullDownAnimated:fullyOpen];
                      }];
 }
+
+- (BOOL)getFullyOpen
+{
+    return fullyOpen;
+}
+
 
 - (void)createConstraints
 {

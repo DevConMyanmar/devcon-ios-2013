@@ -38,6 +38,8 @@
       [self setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
       self.titleShadowOffset = CGSizeMake(0, -1);
       self.font = [UIFont boldSystemFontOfSize:13];
+       
+       //self
    }
    
    return self;

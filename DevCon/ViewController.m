@@ -20,6 +20,9 @@
     IBOutlet UITableView * tbl;
     NSMutableArray * arrSchedules;
     SWTableViewCell * selectedCell;
+    NavBarButton *btnBack;
+    MainNavigationViewController * mainNav;
+    
 }
 @end
 
@@ -42,23 +45,60 @@
         [tbl setSeparatorInset:UIEdgeInsetsZero];
     }
     
-    NavBarButton *btnBack = [[NavBarButton alloc] init];
+    btnBack = [[NavBarButton alloc] init];
     [btnBack addTarget:self action:@selector(animateDropDown:) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithCustomView:btnBack];
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.leftBarButtonItem = backButton;
+    mainNav = (MainNavigationViewController *)self.navigationController;
+    mainNav.owner = self;
     
     //self.edgesForExtendedLayout = UIRectEdgeNone;
     //tbl.contentInset = UIEdgeInsetsMake(0, 0, -20, 0);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTheView) name:@"refreshScheduleView" object:nil];
 }
 
 - (void)animateDropDown:(NavBarButton *)btn{
-    MainNavigationViewController * mainNav = (MainNavigationViewController *)self.navigationController;
+   
+    BOOL isOpen = [mainNav getPullMenuBOOl];
+    NSLog(@"menu open %d",isOpen);
+    if (isOpen) {
+        //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(0);
+        }];
+    }
+    else{
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(M_PI);
+        }];
+    }
     [mainNav animateDropDown];
+    
+}
+
+-(void)pullDownAnimated:(BOOL)open{
+    if (open) {
+        //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(3.14159265358979323846264338327950288);
+        }];
+    }
+    else{
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(0);
+        }];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [self refreshTheView];
+}
+
+- (void) refreshTheView{
     AppDelegate * delegate= [[UIApplication sharedApplication]delegate];
     
     arrSchedules = [delegate.db getAllSchedules];
@@ -74,6 +114,7 @@
             [button setImage:[UIImage imageNamed:@"Star"] forState:UIControlStateNormal];
         }
     }
+    [self reloadData:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -229,6 +270,20 @@
     ScheduleDetailViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ScheduleDetail"];
     viewController.objSchedule = obj;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)reloadData:(BOOL)animated
+{
+    [tbl reloadData];
+    if (animated) {
+        CATransition *animation = [CATransition animation];
+        [animation setType:kCATransitionPush];
+        [animation setSubtype:kCATransitionMoveIn];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
+        [animation setFillMode:kCAFillModeBoth];
+        [animation setDuration:.9];
+        [[tbl layer] addAnimation:animation forKey:@"UITableViewReloadDataAnimationKey"];
+    }
 }
 
 @end

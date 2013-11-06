@@ -17,4 +17,7 @@
 @property (nonatomic,retain) NSString * strCompany;
 @property (nonatomic,retain) NSString * strProfilePic;
 @property (nonatomic,retain) NSString * strProfileCoverPic;
+@property (nonatomic,retain) NSString * strServerId;
+@property (nonatomic,retain) NSString * strSpeakerServerId;
+@property (nonatomic,retain) NSString * strLocationServerId;
 @end

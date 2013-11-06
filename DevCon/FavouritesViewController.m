@@ -16,12 +16,23 @@
 #import "ObjSchedule.h"
 #import "SWTableViewCell.h"
 #import "ScheduleDetailViewController.h"
+#import <QuartzCore/QuartzCore.h>
 @interface FavouritesViewController ()
 {
     IBOutlet UITableView * tbl;
     NSMutableArray * arrSchedules;
     SWTableViewCell * selectedCell;
+    
+    NavBarButton *btnBack;
+    MainNavigationViewController * mainNav;
+    UIBarButtonItem * backButton;
+    
+    IBOutlet UIButton * btnDrop;
 }
+@property (nonatomic, strong) UIDynamicAnimator *animator;
+@property (nonatomic, strong) UIGravityBehavior *gravityBeahvior;
+@property (nonatomic, strong) UICollisionBehavior *collisionBehavior;
+@property (nonatomic, strong) UIDynamicItemBehavior *itemBehavior;
 @end
 
 @implementation FavouritesViewController
@@ -48,21 +59,83 @@
     lblName.textAlignment = NSTextAlignmentCenter;
     lblName.textColor = [UIColor colorWithHexString:@"005b71"];
     self.navigationItem.titleView = lblName;
-    NavBarButton *btnBack = [[NavBarButton alloc] init];
+    
+    mainNav = (MainNavigationViewController *)self.navigationController;
+    mainNav.owner = self;
+    
+   btnBack = [[NavBarButton alloc] init];
     [btnBack addTarget:self action:@selector(animateDropDown:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithCustomView:btnBack];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:btnBack];
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.leftBarButtonItem = backButton;
     
     
     //self.edgesForExtendedLayout = UIRectEdgeNone;
     //tbl.contentInset = UIEdgeInsetsMake(0, 0, -20, 0);
+    
+    UIGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                           action:@selector(tapped:)];
+    [self.view addGestureRecognizer:gesture];
+    
+    // Set up
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    
+    self.gravityBeahvior = [[UIGravityBehavior alloc] initWithItems:nil];
+    
+    self.collisionBehavior = [[UICollisionBehavior alloc] initWithItems:nil];
+    self.collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
+    
+    self.itemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:nil];
+    self.itemBehavior.elasticity = 0.6;
+    self.itemBehavior.friction = 0.5;
+    self.itemBehavior.resistance = 0.5;
+    
+    
+    [self.animator addBehavior:self.gravityBeahvior];
+    [self.animator addBehavior:self.collisionBehavior];
+    [self.animator addBehavior:self.itemBehavior];
+    
+    CGFloat rotationAngleDegrees = -20;
+    CGFloat rotationAngleRadians = rotationAngleDegrees * (M_PI/180);
+    CGPoint offsetPositioning = CGPointMake(-20, -20);
+    
+    CATransform3D transform = CATransform3DIdentity;
+    transform = CATransform3DRotate(transform, rotationAngleRadians, 0.0, 0.0, 1.0);
+    transform = CATransform3DTranslate(transform, offsetPositioning.x, offsetPositioning.y, 0.0);
+    _initialTransformation = transform;
 }
 
 - (void)animateDropDown:(NavBarButton *)btn{
-    MainNavigationViewController * mainNav = (MainNavigationViewController *)self.navigationController;
+    BOOL isOpen = [mainNav getPullMenuBOOl];
+    NSLog(@"menu open %d",isOpen);
+    if (isOpen) {
+        //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(0);
+        }];
+    }
+    else{
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(M_PI);
+        }];
+    }
     [mainNav animateDropDown];
+}
+
+-(void)pullDownAnimated:(BOOL)open{
+    if (open) {
+        //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(3.14159265358979323846264338327950288);
+        }];
+    }
+    else{
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            btnBack.transform = CGAffineTransformMakeRotation(0);
+        }];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -153,6 +226,20 @@
     return cell;
 }
 
+- (IBAction)onAnimate:(id)sender{
+    //[self.gravityBeahvior addItem:mainNav];
+    //[self.collisionBehavior addItem:mainNav];
+    //[self.itemBehavior addItem:mainNav];
+    
+    //[self.gravityBeahvior addItem:btnBack];
+    //[self.collisionBehavior addItem:btnBack];
+    //[self.itemBehavior addItem:btnBack];
+    
+    //[self.gravityBeahvior addItem:btnDrop];
+    //[self.collisionBehavior addItem:btnDrop];
+    //[self.itemBehavior addItem:btnDrop];
+}
+
 #pragma mark - SWTableViewDelegate
 
 - (void)swippableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
@@ -193,7 +280,7 @@
         case 1:
         {
             // Delete button was pressed
-            NSIndexPath *cellIndexPath = [tbl indexPathForCell:cell];
+            //NSIndexPath *cellIndexPath = [tbl indexPathForCell:cell];
             
             // [_testArray removeObjectAtIndex:cellIndexPath.row];
             //[self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -227,6 +314,19 @@
     ScheduleDetailViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ScheduleDetail"];
     viewController.objSchedule = obj;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIView *card = [(SWTableViewCell* )cell mainView];
+    
+    card.layer.transform = self.initialTransformation;
+    card.layer.opacity = 0.8;
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        card.layer.transform = CATransform3DIdentity;
+        card.layer.opacity = 1;
+    }];
 }
 
 @end
