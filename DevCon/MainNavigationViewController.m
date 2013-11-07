@@ -12,6 +12,7 @@
 #import "ViewController.h"
 #import "SpeakersViewController.h"
 #import "FavouritesViewController.h"
+#import "AppDelegate.h"
 @interface MainNavigationViewController ()
 {
     IBOutlet UINavigationController * navMainController;
@@ -80,6 +81,7 @@
 
 -(void)pullDownAnimated:(BOOL)open
 {
+    AppDelegate * delegate = [[UIApplication sharedApplication]delegate];
     if (open)
     {
         NSLog(@"Pull down menu open!");
@@ -90,6 +92,7 @@
     {
         NSLog(@"Pull down menu closed!");
         isPullOpen = open;
+        //[delegate clickPopSoundPlay];
     }
     [owner pullDownAnimated:open];
 }

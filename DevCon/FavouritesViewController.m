@@ -107,10 +107,12 @@
 }
 
 - (void)animateDropDown:(NavBarButton *)btn{
+    
     BOOL isOpen = [mainNav getPullMenuBOOl];
     NSLog(@"menu open %d",isOpen);
     if (isOpen) {
         //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
+        
         [UIView animateWithDuration:0.2 animations:^{
             btnBack.transform = CGAffineTransformMakeRotation(0);
         }];

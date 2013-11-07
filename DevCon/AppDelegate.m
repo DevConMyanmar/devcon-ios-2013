@@ -22,6 +22,7 @@
     self.db = [[DBManager alloc] init];
 	[self.db checkAndCreateDatabase];
     self.window.tintColor = [UIColor colorWithHexString:@"D28029"];
+    
     return YES;
 }
 							
@@ -262,6 +263,36 @@
     if(i==0)
         [self.db insertScheduleSpeakerBy:obj];
     else [self.db updateScheduleSpeakerBy:obj];
+}
+
+- (void) clickPopSoundPlay{
+    NSString * filePath = [[NSBundle mainBundle] pathForResource:@"dropdown" ofType:@"mp3"];
+    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:filePath];
+    if (audioPlayer == nil) {
+        audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+    }
+    [audioPlayer prepareToPlay];
+    [audioPlayer play];
+}
+
+- (void) clickPopSoundStop{
+    [audioPlayer stop];
+    audioPlayer = nil;
+}
+
+- (void) clickFavSoundPlay{
+    NSString * fileFavPath = [[NSBundle mainBundle] pathForResource:@"fav" ofType:@"mp3"];
+    NSURL *fileFavURL = [[NSURL alloc] initFileURLWithPath:fileFavPath];
+    if (audioFavPlayer == nil) {
+        audioFavPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileFavURL error:nil];
+    }
+    [audioFavPlayer prepareToPlay];
+    [audioFavPlayer play];
+}
+
+- (void) clickFavSoundStop{
+    [audioFavPlayer stop];
+    audioFavPlayer = nil;
 }
 
 @end

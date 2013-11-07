@@ -62,16 +62,20 @@
 }
 
 - (void)onFav:(NavFavBarButton *)sender{
+    
     AppDelegate * delegate = [[UIApplication sharedApplication]delegate];
+    [delegate clickFavSoundPlay];
     if (objSchedule.isFav == 0) {
         [sender setFavImage:YES];
         objSchedule.isFav = 1;
         [delegate.db updateScheduleFav:objSchedule.idx andFav:objSchedule.isFav];
+        //[delegate clickFavSoundStop];
     }
     else if (objSchedule.isFav == 1){
         [sender setFavImage:NO];
         objSchedule.isFav = 0;
         [delegate.db updateScheduleFav:objSchedule.idx andFav:objSchedule.isFav];
+        //[delegate clickFavSoundStop];
     }
 }
 

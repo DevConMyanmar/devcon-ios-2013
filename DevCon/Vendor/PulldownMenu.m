@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+StackBlur.h"
 #import "FXBlurView.h"
+#import "AppDelegate.h"
 @implementation PulldownMenu
 
 @synthesize menuList,
@@ -261,19 +262,20 @@ handleColor;
 
 - (void)animateDropDown
 {
-    
+    AppDelegate * appDelegate = [[UIApplication sharedApplication]delegate];
     [UIView animateWithDuration: animationDuration
                           delay: 0.0
                         options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          if (fullyOpen)
                          {
-                             
+                             [appDelegate clickPopSoundStop];
                              self.center = CGPointMake(self.frame.size.width / 2, -((self.frame.size.height / 2) + topMargin));
                              fullyOpen = NO;
                          }
                          else
                          {
+                             [appDelegate clickPopSoundPlay];
                              self.center = CGPointMake(self.frame.size.width / 2, ((self.frame.size.height / 2) + topMargin));
                              fullyOpen = YES;
                          }

@@ -9,6 +9,7 @@
 #import "SWTableViewCell.h"
 #import "UIColor+Expanded.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
 #define kUtilityButtonsWidthMax 260
 #define kUtilityButtonWidthDefault 90
 
@@ -330,8 +331,13 @@ typedef enum {
 #pragma mark - Utility buttons handling
 
 - (void)rightUtilityButtonHandler:(id)sender {
+    
     UIButton *utilityButton = (UIButton *)sender;
     NSInteger utilityButtonTag = [utilityButton tag];
+    if([utilityButton tag] == 0){
+        AppDelegate * delegate = [[UIApplication sharedApplication]delegate];
+        [delegate clickFavSoundPlay];
+    }
     [_delegate swippableTableViewCell:self didTriggerRightUtilityButtonWithIndex:utilityButtonTag];
 }
 

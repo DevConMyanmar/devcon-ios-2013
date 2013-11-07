@@ -64,13 +64,19 @@
    
     BOOL isOpen = [mainNav getPullMenuBOOl];
     NSLog(@"menu open %d",isOpen);
+    AppDelegate * delegate = [[UIApplication sharedApplication]delegate];
     if (isOpen) {
+        
         //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
+        //[delegate clickPopSoundStop];
         [UIView animateWithDuration:0.2 animations:^{
             btnBack.transform = CGAffineTransformMakeRotation(0);
         }];
+        
     }
     else{
+        
+        //[delegate clickPopSoundPlay];
         [UIView animateWithDuration:0.2 animations:^{
             btnBack.transform = CGAffineTransformMakeRotation(M_PI);
         }];

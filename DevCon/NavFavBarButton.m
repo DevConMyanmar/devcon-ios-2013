@@ -44,6 +44,7 @@
 }
 
 - (void) setFavImage:(BOOL)isFav{
+    
     if (!isFav) {
         UIImage *image = [UIImage imageNamed:@"Star_Unselect"];
         // Set the background to the stretchable image
