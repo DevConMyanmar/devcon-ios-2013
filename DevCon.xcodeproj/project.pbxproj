@@ -25,8 +25,6 @@
 		2F0345721802ADE100883A2D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0345711802ADE100883A2D /* libsqlite3.0.dylib */; };
 		2F0345751802AE4900883A2D /* StringTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0345741802AE4900883A2D /* StringTable.m */; };
 		2F0345771802B04D00883A2D /* devcon.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F0345761802B04D00883A2D /* devcon.sqlite */; };
-		2F091005182B645B008F1BA6 /* fav_clip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F091004182B645B008F1BA6 /* fav_clip.mp3 */; };
-		2F091007182B6461008F1BA6 /* pulldown_clip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F091006182B6461008F1BA6 /* pulldown_clip.mp3 */; };
 		2F091009182B6D09008F1BA6 /* dropdown.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F091008182B6D09008F1BA6 /* dropdown.mp3 */; };
 		2F09100D182B78E4008F1BA6 /* fav.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F09100C182B78E4008F1BA6 /* fav.mp3 */; };
 		2F1CA4C5182A03F400064FE5 /* ObjScheduleSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1CA4C4182A03F400064FE5 /* ObjScheduleSpeaker.m */; };
@@ -155,8 +153,6 @@
 		2F0345731802AE4900883A2D /* StringTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringTable.h; sourceTree = "<group>"; };
 		2F0345741802AE4900883A2D /* StringTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTable.m; sourceTree = "<group>"; };
 		2F0345761802B04D00883A2D /* devcon.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = devcon.sqlite; sourceTree = "<group>"; };
-		2F091004182B645B008F1BA6 /* fav_clip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fav_clip.mp3; sourceTree = "<group>"; };
-		2F091006182B6461008F1BA6 /* pulldown_clip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pulldown_clip.mp3; sourceTree = "<group>"; };
 		2F091008182B6D09008F1BA6 /* dropdown.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dropdown.mp3; sourceTree = "<group>"; };
 		2F09100C182B78E4008F1BA6 /* fav.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fav.mp3; sourceTree = "<group>"; };
 		2F1CA4C3182A03F400064FE5 /* ObjScheduleSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjScheduleSpeaker.h; sourceTree = "<group>"; };
@@ -402,9 +398,7 @@
 		2F0345781802B05100883A2D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2F091004182B645B008F1BA6 /* fav_clip.mp3 */,
 				2F091008182B6D09008F1BA6 /* dropdown.mp3 */,
-				2F091006182B6461008F1BA6 /* pulldown_clip.mp3 */,
 				2F09100C182B78E4008F1BA6 /* fav.mp3 */,
 				2FE2391C1804069100D4A803 /* Images */,
 				2F0345761802B04D00883A2D /* devcon.sqlite */,
@@ -728,7 +722,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F091005182B645B008F1BA6 /* fav_clip.mp3 in Resources */,
 				2F641570182A69B60083A449 /* SVProgressHUD.bundle in Resources */,
 				2FF5157218049D2000427B00 /* menu_cell_bg@2x.png in Resources */,
 				2FE239891804127D00D4A803 /* ScheduleCell.xib in Resources */,
@@ -746,7 +739,6 @@
 				2FE23928180406E500D4A803 /* Star_Unselect@2x.png in Resources */,
 				2F091009182B6D09008F1BA6 /* dropdown.mp3 in Resources */,
 				2FF5157118049D2000427B00 /* menu_cell_bg.png in Resources */,
-				2F091007182B6461008F1BA6 /* pulldown_clip.mp3 in Resources */,
 				2F0345511802A72500883A2D /* Images.xcassets in Resources */,
 				2FE23923180406E500D4A803 /* location.png in Resources */,
 				2FE23924180406E500D4A803 /* location@2x.png in Resources */,
