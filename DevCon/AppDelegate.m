@@ -14,6 +14,7 @@
 #import "ObjScheduleSpeaker.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Expanded.h"
+#import "GAI.h"
 @implementation AppDelegate
 @synthesize databasePath,db;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -22,7 +23,18 @@
     self.db = [[DBManager alloc] init];
 	[self.db checkAndCreateDatabase];
     self.window.tintColor = [UIColor colorWithHexString:@"D28029"];
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
     
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    // Initialize tracker.
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-45590085-1"];
+
     return YES;
 }
 							

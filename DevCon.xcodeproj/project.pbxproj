@@ -94,6 +94,11 @@
 		2FF515761804A01E00427B00 /* NavBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF515741804A01E00427B00 /* NavBarButton.m */; };
 		2FFA9580180691AE0063B441 /* NavFavBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFA957F180691AE0063B441 /* NavFavBarButton.m */; };
 		2FFA95881806A9450063B441 /* SpeakersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFA95871806A9450063B441 /* SpeakersViewController.m */; };
+		CC3F7CD2182F1F1C00512259 /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3F7CD1182F1F1C00512259 /* libGoogleAnalytics_debug.a */; };
+		CC3F7CD4182F1F2F00512259 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3F7CD3182F1F2F00512259 /* CoreData.framework */; };
+		CC3F7CD6182F1F3500512259 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3F7CD5182F1F3500512259 /* SystemConfiguration.framework */; };
+		CC3F7CD8182F1F4300512259 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3F7CD7182F1F4300512259 /* libGoogleAnalyticsServices.a */; };
+		CC3F7CDA182F1F5400512259 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3F7CD9182F1F5400512259 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -268,6 +273,17 @@
 		2FFA957F180691AE0063B441 /* NavFavBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavFavBarButton.m; sourceTree = "<group>"; };
 		2FFA95861806A9450063B441 /* SpeakersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakersViewController.h; sourceTree = "<group>"; };
 		2FFA95871806A9450063B441 /* SpeakersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeakersViewController.m; sourceTree = "<group>"; };
+		CC3F7CCB182F1F1C00512259 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		CC3F7CCC182F1F1C00512259 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		CC3F7CCD182F1F1C00512259 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		CC3F7CCE182F1F1C00512259 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		CC3F7CCF182F1F1C00512259 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		CC3F7CD0182F1F1C00512259 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		CC3F7CD1182F1F1C00512259 /* libGoogleAnalytics_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_debug.a; sourceTree = "<group>"; };
+		CC3F7CD3182F1F2F00512259 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		CC3F7CD5182F1F3500512259 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CC3F7CD7182F1F4300512259 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		CC3F7CD9182F1F5400512259 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,11 +291,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC3F7CDA182F1F5400512259 /* libz.dylib in Frameworks */,
+				CC3F7CD6182F1F3500512259 /* SystemConfiguration.framework in Frameworks */,
+				CC3F7CD4182F1F2F00512259 /* CoreData.framework in Frameworks */,
 				2FF51560180488CC00427B00 /* libGPUImage.a in Frameworks */,
 				2FF514EA180426CE00427B00 /* QuartzCore.framework in Frameworks */,
 				2FF514E8180426C700427B00 /* CoreText.framework in Frameworks */,
+				CC3F7CD2182F1F1C00512259 /* libGoogleAnalytics_debug.a in Frameworks */,
 				2F0345721802ADE100883A2D /* libsqlite3.0.dylib in Frameworks */,
 				2F03453B1802A72500883A2D /* CoreGraphics.framework in Frameworks */,
+				CC3F7CD8182F1F4300512259 /* libGoogleAnalyticsServices.a in Frameworks */,
 				2F03453D1802A72500883A2D /* UIKit.framework in Frameworks */,
 				2F0345391802A72500883A2D /* Foundation.framework in Frameworks */,
 			);
@@ -321,6 +342,9 @@
 		2F0345371802A72500883A2D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC3F7CD9182F1F5400512259 /* libz.dylib */,
+				CC3F7CD5182F1F3500512259 /* SystemConfiguration.framework */,
+				CC3F7CD3182F1F2F00512259 /* CoreData.framework */,
 				2FF514E9180426CE00427B00 /* QuartzCore.framework */,
 				2FF514E7180426C700427B00 /* CoreText.framework */,
 				2F0345711802ADE100883A2D /* libsqlite3.0.dylib */,
@@ -501,6 +525,7 @@
 		2FE239031803CC7200D4A803 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				CC3F7CCA182F1F1C00512259 /* GoogleAnalytics */,
 				2F64156B182A69B50083A449 /* SVProgressHUD */,
 				2F347EE2182A572900FDE7B6 /* FXBlurView */,
 				2F347EB0182A4F2F00FDE7B6 /* SDWebImage */,
@@ -622,6 +647,22 @@
 			name = SpeakersViewController;
 			sourceTree = "<group>";
 		};
+		CC3F7CCA182F1F1C00512259 /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				CC3F7CD7182F1F4300512259 /* libGoogleAnalyticsServices.a */,
+				CC3F7CCB182F1F1C00512259 /* GAI.h */,
+				CC3F7CCC182F1F1C00512259 /* GAIDictionaryBuilder.h */,
+				CC3F7CCD182F1F1C00512259 /* GAIFields.h */,
+				CC3F7CCE182F1F1C00512259 /* GAILogger.h */,
+				CC3F7CCF182F1F1C00512259 /* GAITrackedViewController.h */,
+				CC3F7CD0182F1F1C00512259 /* GAITracker.h */,
+				CC3F7CD1182F1F1C00512259 /* libGoogleAnalytics_debug.a */,
+			);
+			name = GoogleAnalytics;
+			path = Library;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -670,6 +711,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = devcon;
 				TargetAttributes = {
+					2F0345341802A72400883A2D = {
+						DevelopmentTeam = D4QU9B59EM;
+					};
 					2F0345551802A72500883A2D = {
 						TestTargetID = 2F0345341802A72400883A2D;
 					};
@@ -950,14 +994,20 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zayar W (TG9L9B6EG5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_RESOURCE_RULES_PATH[sdk=*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DevCon/DevCon-Prefix.pch";
 				HEADER_SEARCH_PATHS = "Submodules/GPUImage/Source/**";
 				INFOPLIST_FILE = "DevCon/DevCon-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/yemyatmin/Work/Ios/dev-con/DevCon/Library",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -972,12 +1022,19 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DevCon/DevCon-Prefix.pch";
 				HEADER_SEARCH_PATHS = "Submodules/GPUImage/Source/**";
 				INFOPLIST_FILE = "DevCon/DevCon-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/yemyatmin/Work/Ios/dev-con/DevCon/Library",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
