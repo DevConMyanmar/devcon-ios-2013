@@ -21,7 +21,6 @@
     
     NavBarButton *btnBack;
     MainNavigationViewController * mainNav;
-
 }
 @end
 static NSString * const kCellReuseIdentifier = @"collectionViewCell";

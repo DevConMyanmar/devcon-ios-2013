@@ -28,7 +28,7 @@
 + (UIImage *) resizedImage:(UIImage *) inImage newsize:(CGRect) thumbRect;
 + (UIImage*)imageByCropping:(UIImage *)imageToCrop toRect:(CGRect)rect;
 
-+(NSString *) getDatabasePath;
+//+(NSString *) getDatabasePath;
 
 +(void) showAlert:(NSString *) title message:(NSString *) msg;
 
@@ -45,4 +45,14 @@
 + (NSDate *)dateSubtractionSinceTodayByTimetick:(int)timetick;
 + (NSString *)truncateTheString:(NSString *)str andLength:(int)lenght;
 + (float) getPercentageAmount:(float)percentage andTotal:(float)total;
+
++ (BOOL) isEqualOSVersion:(NSString *)v;
+
++ (BOOL) isGreaterOSVersion:(NSString *)v;
+
++ (BOOL) isGreaterOREqualOSVersion:(NSString *)v;
+
++ (BOOL) isLessOSVersion:(NSString *)v;
+
++ (BOOL) SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO:(NSString *)v;
 @end

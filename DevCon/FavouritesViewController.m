@@ -199,7 +199,7 @@
     //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188f alpha:1.0] icon:[UIImage imageNamed:@"cross.png"]];
     //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0] icon:[UIImage imageNamed:@"list.png"]];
     
-    [rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:221/255.f green:126/255.f blue:55/255.f alpha:1] icon:[UIImage imageNamed:@"Star_Unselect"] andTag:indexPath.row];
+    [rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:221/255.f green:126/255.f blue:55/255.f alpha:1] icon:[UIImage imageNamed:@"Star_Unselect2"] andTag:indexPath.row];
     //[rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] title:@"Delete"];
     
     cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier height:([ScheduleCell heightForCellWithPost:[arrSchedules objectAtIndex:indexPath.row]]+ 81) leftUtilityButtons:leftUtilityButtons rightUtilityButtons:rightUtilityButtons];
@@ -216,10 +216,10 @@
     //button.backgroundColor = color;
     
     if (obj.isFav == 0) {
-        [button setImage:[UIImage imageNamed:@"Star_Unselect"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"Star_Unselect2"] forState:UIControlStateNormal];
     }
     else if (obj.isFav == 1){
-        [button setImage:[UIImage imageNamed:@"Star"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"Star2"] forState:UIControlStateNormal];
     }
     cell.tag = indexPath.row;
     

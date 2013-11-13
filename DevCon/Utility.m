@@ -13,7 +13,11 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation Utility
-
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 + (BOOL) isNumber:(NSString *)input{
    NSCharacterSet *cs;
    NSString *filtered;
@@ -225,12 +229,12 @@
    return testImg;
 }
 
-+(NSString *) getDatabasePath
+/*+(NSString *) getDatabasePath
 {
     NSString *databasePath = [(AppDelegate *)[[UIApplication sharedApplication] delegate] databasePath];
     
     return databasePath;
-}
+}*/
 
 +(void) showAlert:(NSString *)title message:(NSString *)msg
 {
@@ -382,6 +386,46 @@
     
     float result = (percentage/100 * total);
     return result;
+}
+
++ (BOOL) isEqualOSVersion:(NSString *)v{
+    
+    if (SYSTEM_VERSION_EQUAL_TO(v)) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
++ (BOOL) isGreaterOSVersion:(NSString *)v{
+    
+    if (SYSTEM_VERSION_GREATER_THAN(v)) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
++ (BOOL) isGreaterOREqualOSVersion:(NSString *)v{
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
++ (BOOL) isLessOSVersion:(NSString *)v{
+    
+    if (SYSTEM_VERSION_LESS_THAN(v)) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
++ (BOOL) SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO:(NSString *)v{
+    
+    if (SYSTEM_VERSION_LESS_THAN(v)) {
+        return TRUE;
+    }
+    return FALSE;
 }
 
 @end
