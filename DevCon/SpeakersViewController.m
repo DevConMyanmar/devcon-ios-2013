@@ -72,8 +72,6 @@ static NSString * const kCellReuseIdentifier = @"collectionViewCell";
     mainNav = (MainNavigationViewController *)self.navigationController;
     mainNav.owner = self;
     
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
-    //tbl.contentInset = UIEdgeInsetsMake(0, 0, -20, 0);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTheView) name:@"refreshScheduleView" object:nil];
 }
 
@@ -106,7 +104,6 @@ static NSString * const kCellReuseIdentifier = @"collectionViewCell";
 
 -(void)pullDownAnimated:(BOOL)open{
     if (open) {
-        //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
         [UIView animateWithDuration:0.2 animations:^{
             btnBack.transform = CGAffineTransformMakeRotation(3.14159265358979323846264338327950288);
         }];
@@ -128,24 +125,6 @@ static NSString * const kCellReuseIdentifier = @"collectionViewCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    //static NSString *CellIdentifier = @"NameLoginCollectionItem";
-	/*NameLoginCollectionItem *cell = (NameLoginCollectionItem *) [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-     
-     if (cell == nil) {
-     NSArray * topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"NameLoginCollectionItem" owner:nil options:nil];
-     for(id currentObject in topLevelObjects){
-     if([currentObject isKindOfClass:[UITableViewCell class]]){
-     cell = (NameLoginCollectionItem *) currentObject;
-     
-     break;
-     }
-     }
-     }
-     
-     //UIImageView *recipeImageView = (UIImageView *)[cell viewWithTag:100];
-     //recipeImageView.image = [UIImage imageNamed:[arrEmpList objectAtIndex:indexPath.row]];
-     //cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arsenal_logo.png"]];
-     [cell setName:[arrEmpList objectAtIndex:indexPath.row]];*/
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellReuseIdentifier forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
     ObjSpeaker * emp = [arrEmpList objectAtIndex:indexPath.row];
@@ -154,16 +133,12 @@ static NSString * const kCellReuseIdentifier = @"collectionViewCell";
     
     UILabel *titlJobTitLabel = (UILabel *)[cell viewWithTag:77];
     [titlJobTitLabel setText:[NSString stringWithFormat:@"%@",emp.strJobTitle]];
-    
-    //UILabel *titlCompanyLabel = (UILabel *)[cell viewWithTag:77];
-   // [titlCompanyLabel setText:[NSString stringWithFormat:@"%@",emp.strCompany]];
+
     
     UIImageView * imgView = (UIImageView *)[cell viewWithTag:99];
     [Utility makeCornerRadius:imgView andRadius:imgView.frame.size.width/2];
-    //[imgView setImage:[UIImage imageNamed:@"temp_profile"]];
     [imgView setImageWithURL:[NSURL URLWithString:emp.strProfilePic] placeholderImage:[UIImage imageNamed:@"img_profile_default"]];
     
-    //[Utility makeBorder:cell andWidth:0.5 andColor:[UIColor grayColor]];
     [Utility makeCornerRadius:cell andRadius:4];
     return cell;
 }

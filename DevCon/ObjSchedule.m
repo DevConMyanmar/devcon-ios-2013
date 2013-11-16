@@ -26,23 +26,21 @@
 
 
 - (ObjSpeaker *) getSpeaker{
-    //AppDelegate * delegate = [[UIApplication sharedApplication]delegate];
     objSpeaker = [arrSpeaker objectAtIndex:0];
     return objSpeaker;
 }
 
 - (NSMutableArray *) getScheduleSpeaker{
     AppDelegate * delegate = [[UIApplication sharedApplication]delegate];
-    //objSpeaker = [delegate.db getSpeakerById:speakerId];
     NSMutableArray * arr= [delegate.db getAllScheduleSpeakersBy:strServerId];
     if ([arr count]>0) {
         arrSpeaker = [[NSMutableArray alloc] initWithCapacity:[arr count]];
     }
     for (ObjScheduleSpeaker * objSchSpeak in arr) {
-        NSLog(@"obj speaker id %@",objSchSpeak.strSpeakerId);
+        //NSLog(@"obj speaker id %@",objSchSpeak.strSpeakerId);
         ObjSpeaker * objS = [delegate.db getSpeakerByStringId:objSchSpeak.strSpeakerId];
         [arrSpeaker addObject:objS];
-        NSLog(@"obj speaker name %@",objS.strSpeakerName);
+        //NSLog(@"obj speaker name %@",objS.strSpeakerName);
     }
     return arrSpeaker;
 }
@@ -60,7 +58,7 @@
     [dateFormatter2 setDateFormat:@"HH:mma"];
     
     strTime2 = [dateFormatter2 stringFromDate:date];
-    NSLog(@"time format only %@",strTime2);
+    //NSLog(@"time format only %@",strTime2);
     return strTime2;
 }
 
@@ -77,7 +75,7 @@
     [dateFormatter2 setDateFormat:@"MMMM dd,yyyy"];
     
     strTime2 = [dateFormatter2 stringFromDate:date];
-    NSLog(@"time format only %@",strTime2);
+    //NSLog(@"time format only %@",strTime2);
     return strTime2;
 }
 

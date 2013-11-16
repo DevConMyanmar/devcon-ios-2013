@@ -84,15 +84,14 @@
     AppDelegate * delegate = [[UIApplication sharedApplication]delegate];
     if (open)
     {
-        NSLog(@"Pull down menu open!");
+        //NSLog(@"Pull down menu open!");
         isPullOpen = open;
         
     }
     else
     {
-        NSLog(@"Pull down menu closed!");
+        //NSLog(@"Pull down menu closed!");
         isPullOpen = open;
-        //[delegate clickPopSoundPlay];
     }
     [owner pullDownAnimated:open];
 }

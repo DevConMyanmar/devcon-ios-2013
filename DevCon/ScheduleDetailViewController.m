@@ -69,13 +69,12 @@
         [sender setFavImage:YES];
         objSchedule.isFav = 1;
         [delegate.db updateScheduleFav:objSchedule.idx andFav:objSchedule.isFav];
-        //[delegate clickFavSoundStop];
+        
     }
     else if (objSchedule.isFav == 1){
         [sender setFavImage:NO];
         objSchedule.isFav = 0;
         [delegate.db updateScheduleFav:objSchedule.idx andFav:objSchedule.isFav];
-        //[delegate clickFavSoundStop];
     }
 }
 
@@ -92,15 +91,7 @@
 
 - (void)loadTheViewWith:(ObjSchedule *)obj{
     UIImage * imageProfileDefault = [UIImage imageNamed:@"img_profile_default"];
-    //[imgViewProfileCover setImageWithURL:[NSURL URLWithString:obj.objSpeaker.strProfilePic] placeholderImage:imageProfileDefault];
-    //mgViewProfileCover.image = [imgViewProfileCover.image stackBlur:10];
-    /*[imgViewProfileCover setImageWithURLRequest:[NSURL URLWithString:obj.objSpeaker.strProfilePic] placeholderImage:imageProfileDefault success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        imgViewProfileCover.image = [image stackBlur:10];
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-    }];*/
-     
     
-    //imgViewProfileCover.image = image;
     imgViewProfileCover.image = [imageProfileDefault stackBlur:10];
     [imgViewProfileCover setImageWithURL:[NSURL URLWithString:obj.objSpeaker.strProfilePic] placeholderImage:nil options:SDWebImageProgressiveDownload progress:^(NSUInteger receivedSize, long long expectedSize)
      {
@@ -108,8 +99,7 @@
      }
     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType)
      {
-        
-         //imgViewProfileCover.image = [imageProfileDefault stackBlur:10];
+
          [self setCoverPhoto:image];
      }];
     
@@ -120,11 +110,12 @@
     [Utility makeCornerRadius:imgViewProfile andRadius:imgViewProfile.frame.size.width/2];
     lblProfileName.text = obj.objSpeaker.strSpeakerName;
     
-    float titleHeight = [self heightOfViewWithPureHeight:obj.strTitle andFontName:@"Avenir Next Medium" andFontSize:16.0f andMinimumSize:30 andWidth:299];
+    float titleHeight = [self heightOfViewWithPureHeight:obj.strTitle andFontName:@"Avenir Next Medium" andFontSize:16.0f andMinimumSize:30 andWidth:299] - 10;
     CGRect newTitleFrame = lblTitle.frame;
     newTitleFrame.size.height = titleHeight;
     lblTitle.frame = newTitleFrame;
     lblTitle.text = obj.strTitle;
+    lblTitle.numberOfLines = 0;
     
     float speratorHieght = 0.5f;
     CGRect newSperator1Frame = lblSperator1.frame;
@@ -150,15 +141,8 @@
     newBgFrame.size.height += newTitleFrame.size.height;
     lblBgTitle.frame = newBgFrame;
     
-    //NSDate * date = [NSDate dateWithTimeIntervalSince1970:obj.timetick];
-    //NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
-    //[dateFormatter setDateFormat:@"MMMM dd,yyyy"];
-    //NSString * strDate = [dateFormatter stringFromDate:date];
     lblDate.text =[obj getSystemDateOnlyByDate];
     
-    //NSDateFormatter * dateFormatter2 = [[NSDateFormatter alloc]init];
-    //[dateFormatter2 setDateFormat:@"HH:mma"];
-    //NSString * strTime = [dateFormatter2 stringFromDate:date];
     lblTime.text =[obj getSystemTimeOnlyByDate];
     
     CGRect newTextViewFrame = txtViewDescription.frame;
@@ -181,7 +165,7 @@
 - (CGFloat)heightOfViewWithPureHeight:(NSString *)str andFontName:(NSString *)strFont andFontSize:(float)fSize andMinimumSize:(float)mSize andWidth:(float)width{
     CGSize sizeToFit = [str sizeWithFont:[UIFont fontWithName:strFont size:fSize] constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     
-    return fmaxf(mSize, sizeToFit.height+5);
+    return fmaxf(mSize, sizeToFit.height+20);
 }
 
 - (void)didReceiveMemoryWarning

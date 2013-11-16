@@ -54,9 +54,6 @@
     mainNav = (MainNavigationViewController *)self.navigationController;
     mainNav.owner = self;
     
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
-    //tbl.contentInset = UIEdgeInsetsMake(0, 0, -20, 0);
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTheView) name:@"refreshScheduleView" object:nil];
 }
 
@@ -66,17 +63,14 @@
     NSLog(@"menu open %d",isOpen);
     AppDelegate * delegate = [[UIApplication sharedApplication]delegate];
     if (isOpen) {
-        
-        //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
-        //[delegate clickPopSoundStop];
+    
         [UIView animateWithDuration:0.2 animations:^{
             btnBack.transform = CGAffineTransformMakeRotation(0);
         }];
         
     }
     else{
-        
-        //[delegate clickPopSoundPlay];
+
         [UIView animateWithDuration:0.2 animations:^{
             btnBack.transform = CGAffineTransformMakeRotation(M_PI);
         }];
@@ -87,7 +81,6 @@
 
 -(void)pullDownAnimated:(BOOL)open{
     if (open) {
-        //btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
         [UIView animateWithDuration:0.2 animations:^{
             btnBack.transform = CGAffineTransformMakeRotation(3.14159265358979323846264338327950288);
         }];
@@ -127,70 +120,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [arrSchedules count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    /*static NSString *CellIdentifier = @"ScheduleCell";
-	ScheduleCell *cell = (ScheduleCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-	if (cell == nil) {
-		cell = [[ScheduleCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-	}
-    ObjSchedule * obj = [arrSchedules objectAtIndex:[indexPath row]];
-    [cell loadTheViewWith:obj];
-    return cell;*/
-    static NSString *cellIdentifier = @"Cell";
-    
-    SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    //if (cell == nil) {
-        NSMutableArray *leftUtilityButtons = [NSMutableArray new];
-        NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-        
-        //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:0.07 green:0.75f blue:0.16f alpha:1.0] icon:[UIImage imageNamed:@"check.png"]];
-        //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:1.0] icon:[UIImage imageNamed:@"clock.png"]];
-        //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188f alpha:1.0] icon:[UIImage imageNamed:@"cross.png"]];
-        //[leftUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0] icon:[UIImage imageNamed:@"list.png"]];
-        
-        [rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:221/255.f green:126/255.f blue:55/255.f alpha:1] icon:[UIImage imageNamed:@"Star_Unselect2"] andTag:indexPath.row];
-        //[rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithHexString:@"e9e9e9"] icon:[UIImage imageNamed:@"Star_Unselect2"] andTag:indexPath.row];
-        //[rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] title:@"Delete"];
-        
-        cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier height:([ScheduleCell heightForCellWithPost:[arrSchedules objectAtIndex:indexPath.row]]+ 81) leftUtilityButtons:leftUtilityButtons rightUtilityButtons:rightUtilityButtons];
-        cell.delegate = self;
-   // }
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    /*NSDate *dateObject = arrSchedules[indexPath.row];
-    cell.textLabel.text = [dateObject description];
-    cell.detailTextLabel.text = @"Some detail text";*/
-    ObjSchedule * obj = [arrSchedules objectAtIndex:[indexPath row]];
-    UIButton *button = [cell.rightUtilityButtons objectAtIndex:0];
-    //button.backgroundColor = color;
-    
-    if (obj.isFav == 0) {
-        [button setImage:[UIImage imageNamed:@"Star_Unselect2"] forState:UIControlStateNormal];
-    }
-    else if (obj.isFav == 1){
-        [button setImage:[UIImage imageNamed:@"Star2"] forState:UIControlStateNormal];
-    }
-    cell.tag = indexPath.row;
-    
-    [cell loadTheViewWith:obj];
-    //[cell reloadTheScrollViewHeight:([ScheduleCell heightForCellWithPost:[arrSchedules objectAtIndex:indexPath.row]]+ 81)];
-    return cell;
 }
 
 #pragma mark - SWTableViewDelegate
@@ -254,6 +183,8 @@
     }
 }
 
+
+#pragma Tableview Delegate and Datasource
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
@@ -269,6 +200,51 @@
     ScheduleDetailViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ScheduleDetail"];
     viewController.objSchedule = obj;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [arrSchedules count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"Cell";
+    
+    SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    //if (cell == nil) {
+    NSMutableArray *leftUtilityButtons = [NSMutableArray new];
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    
+    [rightUtilityButtons addUtilityButtonWithColor:[UIColor colorWithRed:221/255.f green:126/255.f blue:55/255.f alpha:1] icon:[UIImage imageNamed:@"Star_Unselect2"] andTag:indexPath.row];
+    
+    cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier height:([ScheduleCell heightForCellWithPost:[arrSchedules objectAtIndex:indexPath.row]]+ 81) leftUtilityButtons:leftUtilityButtons rightUtilityButtons:rightUtilityButtons];
+    cell.delegate = self;
+    // }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    ObjSchedule * obj = [arrSchedules objectAtIndex:[indexPath row]];
+    UIButton *button = [cell.rightUtilityButtons objectAtIndex:0];
+    //button.backgroundColor = color;
+    
+    if (obj.isFav == 0) {
+        [button setImage:[UIImage imageNamed:@"Star_Unselect2"] forState:UIControlStateNormal];
+    }
+    else if (obj.isFav == 1){
+        [button setImage:[UIImage imageNamed:@"Star2"] forState:UIControlStateNormal];
+    }
+    cell.tag = indexPath.row;
+    
+    [cell loadTheViewWith:obj];
+    
+    return cell;
 }
 
 - (void)didSelectedTheCell:(SWTableViewCell *)cell{

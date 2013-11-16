@@ -14,9 +14,6 @@
 {
     NSString * databasePath;
     DBManager * db;
-    AVAudioPlayer *audioPlayer;
-    AVAudioPlayer *audioFavPlayer;
-    
 }
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) NSString * databasePath;
@@ -26,6 +23,4 @@
 
 - (void) clickPopSoundPlay;
 - (void) clickFavSoundPlay;
-- (void) clickPopSoundStop;
-- (void) clickFavSoundStop;
 @end

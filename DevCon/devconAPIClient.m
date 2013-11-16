@@ -9,12 +9,7 @@
 #import "devconAPIClient.h"
 #import "AFJSONRequestOperation.h"
 #import "StringTable.h"
-//#import "Post.h"
 
-//static NSString * const kAFAppDotNetAPIBaseURLString = @"http://pos-nex.herokuapp.com/";
-//static NSString * const kAFAppDotNetAPIBaseURLString = @"http://192.168.0.100:3000/";
-
-//Pet Nex UAT
 static NSString * const kAFAppDotNetAPIBaseURLString = @"http://devconmyanmar.herokuapp.com/";
 
 @implementation devconAPIClient

@@ -54,99 +54,6 @@
     return YES;
 }
 
-/*!
- * Called by Reachability whenever status changes.
- */
-- (void) reachabilityChanged:(NSNotification *)note
-{
-	Reachability* curReach = [note object];
-	NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
-	[self updateInterfaceWithReachability:curReach];
-}
-
-
-- (void)updateInterfaceWithReachability:(Reachability *)reachability
-{
-    
-	if (reachability == self.internetReachability)
-	{
-		//[self configureTextField:self.internetConnectionStatusField imageView:self.internetConnectionImageView reachability:reachability];
-        NetworkStatus netStatus = [reachability currentReachabilityStatus];
-        BOOL connectionRequired = [reachability connectionRequired];
-        //NSString* statusString = @"";
-        if (netStatus == NotReachable) {
-            self.isOnline = FALSE;
-            NSLog(@"it is offline!!");
-        }
-        else{
-            self.isOnline = TRUE;
-            NSLog(@"it is online!!");
-        }
-        /*switch (netStatus)
-        {
-            case NotReachable:        {
-                self.isOnline = FALSE;
-                NSLog(@"")
-                break;
-            }
-                
-            case ReachableViaWWAN:        {
-                self.isOnline = TRUE;
-                break;
-            }
-            
-        }
-        
-        
-        if (connectionRequired)
-        {
-            NSString *connectionRequiredFormatString = NSLocalizedString(@"%@, Connection Required", @"Concatenation of status string with connection requirement");
-            statusString= [NSString stringWithFormat:connectionRequiredFormatString, statusString];
-            NSLog(@"connection status %@",statusString);
-        }*/
-        
-	}
-}
-
-
-- (void)configureTextField:(UITextField *)textField imageView:(UIImageView *)imageView reachability:(Reachability *)reachability
-{
-    NetworkStatus netStatus = [reachability currentReachabilityStatus];
-    BOOL connectionRequired = [reachability connectionRequired];
-    NSString* statusString = @"";
-    
-    switch (netStatus)
-    {
-        case NotReachable:        {
-            statusString = NSLocalizedString(@"Access Not Available", @"Text field text for access is not available");
-            imageView.image = [UIImage imageNamed:@"stop-32.png"] ;
-            /*
-             Minor interface detail- connectionRequired may return YES even when the host is unreachable. We cover that up here...
-             */
-            connectionRequired = NO;
-            break;
-        }
-            
-        case ReachableViaWWAN:        {
-            statusString = NSLocalizedString(@"Reachable WWAN", @"");
-            imageView.image = [UIImage imageNamed:@"WWAN5.png"];
-            break;
-        }
-        case ReachableViaWiFi:        {
-            statusString= NSLocalizedString(@"Reachable WiFi", @"");
-            imageView.image = [UIImage imageNamed:@"Airport.png"];
-            break;
-        }
-    }
-    
-    if (connectionRequired)
-    {
-        NSString *connectionRequiredFormatString = NSLocalizedString(@"%@, Connection Required", @"Concatenation of status string with connection requirement");
-        statusString= [NSString stringWithFormat:connectionRequiredFormatString, statusString];
-    }
-    textField.text= statusString;
-}
-							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -175,11 +82,10 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma all sync is here
 - (void)syncSpeaker{
     if(self.isOnline){
         [SVProgressHUD show];
-        //[SVProgressHUD appearance].hudBackgroundColor = [UIColor whiteColor];
-        //[SVProgressHUD appearance].hudRingBackgroundColor = [UIColor darkGrayColor];
         [[devconAPIClient sharedClient] getPath:[NSString stringWithFormat:@"%@",SPEAKER_LINK] parameters:nil success:^(AFHTTPRequestOperation *operation, id json) {
             NSLog(@"successfully return!!! %@",json);
             NSDictionary * dics = (NSDictionary *)json;
@@ -232,8 +138,6 @@
 - (void)syncLocation{
     if(self.isOnline){
         [SVProgressHUD show];
-        //[SVProgressHUD appearance].hudBackgroundColor = [UIColor whiteColor];
-        //[SVProgressHUD appearance].hudRingBackgroundColor = [UIColor darkGrayColor];
         [[devconAPIClient sharedClient] getPath:[NSString stringWithFormat:@"%@",LOCATION_LINK] parameters:nil success:^(AFHTTPRequestOperation *operation, id json) {
             NSLog(@"successfully return!!! %@",json);
             NSDictionary * dics = (NSDictionary *)json;
@@ -256,16 +160,8 @@
                     obj.strDescription = [dicSpeaker objectForKey:@"desc"];
                 else obj.strDescription = @"";
                 
-                obj.log = [[dicSpeaker objectForKey:@"long"] doubleValue];
-                obj.lat = [[dicSpeaker objectForKey:@"lat"] doubleValue];
-                
-                /*if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"long"] shouldCleanWhiteSpace:YES])
-                    obj.log = [[dicSpeaker objectForKey:@"long"] doubleValue];
-                else obj.log = 0;
-                
-                if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"lat"] shouldCleanWhiteSpace:YES])
-                    obj.lat = [[dicSpeaker objectForKey:@"lat"] doubleValue];
-                else obj.lat = 0;*/
+                //obj.log = [[dicSpeaker objectForKey:@"long"] doubleValue];
+                //obj.lat = [[dicSpeaker objectForKey:@"lat"] doubleValue];
                 
                 if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"color"] shouldCleanWhiteSpace:YES])
                     obj.strColorHex = [dicSpeaker objectForKey:@"color"];
@@ -277,9 +173,8 @@
             [self syncSchedule];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error %@",error);
+            //NSLog(@"Error %@",error);
             [SVProgressHUD dismiss];
-            //[SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",error]];
         }];
     }
 }
@@ -287,8 +182,6 @@
 - (void)syncSchedule{
     if(self.isOnline){
         [SVProgressHUD show];
-        //[SVProgressHUD appearance].hudBackgroundColor = [UIColor whiteColor];
-        //[SVProgressHUD appearance].hudRingBackgroundColor = [UIColor darkGrayColor];
         [[devconAPIClient sharedClient] getPath:[NSString stringWithFormat:@"%@",SCHEDULES_LINK] parameters:nil success:^(AFHTTPRequestOperation *operation, id json) {
             NSLog(@"successfully return!!! %@",json);
             NSDictionary * dics = (NSDictionary *)json;
@@ -315,26 +208,6 @@
                     obj.strTime = [dicSpeaker objectForKey:@"session_time"];
                 else obj.strTime = @"";
                 
-                /*if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"speaker_id"] shouldCleanWhiteSpace:YES])
-                {
-                     obj.strSpeakerId = [dicSpeaker objectForKey:@"speaker_id"];
-                    
-                }
-                else obj.strSpeakerId = 0;*/
-                /*if(![Utility stringIsEmpty:[dicSpeaker objectForKey:@"speaker_ids"] shouldCleanWhiteSpace:YES])
-                {
-                    NSArray * arrSId = [dicSpeaker objectForKey:@"speaker_ids"];
-                    NSLog(@"speaker arr count %d",[arrSId count]);
-                    for(NSInteger y=0;y<[arrSId count];y++){
-                        NSString * str = [arrSId objectAtIndex:y];
-                        ObjScheduleSpeaker * objSchSpeaker = [[ObjScheduleSpeaker alloc] init];
-                        objSchSpeaker.strScheduleId = obj.strServerId;
-                        objSchSpeaker.strSpeakerId = str;
-                        [self saveORupdateScheduleSpeaker:objSchSpeaker];
-                        NSLog(@"speaker id%@",str);
-                    }
-                }*/
-                //else obj.strSpeakerId = 0;
                 NSArray * arrSId = [dicSpeaker objectForKey:@"speaker_ids"];
                 NSLog(@"speaker arr count %d",[arrSId count]);
                 for(NSInteger y=0;y<[arrSId count];y++){
@@ -367,6 +240,7 @@
     }
 }
 
+#pragma dealing with local db
 - (void) saveORupdateSpeaker:(ObjSpeaker *)obj{
     int i=[self.db checkSpeakerBy:obj.strServerId];
                if(i==0)
@@ -395,48 +269,57 @@
     else [self.db updateScheduleSpeakerBy:obj];
 }
 
+
+#pragma sound clip setup
 - (void) clickPopSoundPlay{
     NSString * filePath = [[NSBundle mainBundle] pathForResource:@"dropdown" ofType:@"mp3"];
-    //NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:filePath];
-    /*if (audioPlayer == nil) {
-        audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
-    }
-    [audioPlayer prepareToPlay];
-    [audioPlayer play];*/
     SystemSoundID soundID;
-    
-    //NSString *soundPath = [[NSBundle mainBundle] pathForResource:fileURL ofType:@"caf"];
     NSURL *soundUrl = [NSURL fileURLWithPath:filePath];
     
     AudioServicesCreateSystemSoundID ((__bridge CFURLRef)soundUrl, &soundID);
     AudioServicesPlaySystemSound(soundID);
 }
 
-- (void) clickPopSoundStop{
-    [audioPlayer stop];
-    audioPlayer = nil;
-}
-
 - (void) clickFavSoundPlay{
     NSString * fileFavPath = [[NSBundle mainBundle] pathForResource:@"fav" ofType:@"mp3"];
-    /*NSURL *fileFavURL = [[NSURL alloc] initFileURLWithPath:fileFavPath];
-    if (audioFavPlayer == nil) {
-        audioFavPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileFavURL error:nil];
-    }
-    [audioFavPlayer prepareToPlay];
-    [audioFavPlayer play];*/
     SystemSoundID soundID;
     
-    //NSString *soundPath = [[NSBundle mainBundle] pathForResource:fileURL ofType:@"caf"];
     NSURL *soundUrl = [NSURL fileURLWithPath:fileFavPath];
     
     AudioServicesCreateSystemSoundID ((__bridge CFURLRef)soundUrl, &soundID);
     AudioServicesPlaySystemSound(soundID);
 }
 
-- (void) clickFavSoundStop{
-    [audioFavPlayer stop];
-    audioFavPlayer = nil;
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void) reachabilityChanged:(NSNotification *)note
+{
+	Reachability* curReach = [note object];
+	NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
+	[self updateInterfaceWithReachability:curReach];
 }
+
+
+- (void)updateInterfaceWithReachability:(Reachability *)reachability
+{
+    
+	if (reachability == self.internetReachability)
+	{
+        NetworkStatus netStatus = [reachability currentReachabilityStatus];
+        BOOL connectionRequired = [reachability connectionRequired];
+        
+        if (netStatus == NotReachable) {
+            self.isOnline = FALSE;
+            //NSLog(@"it is offline!!");
+        }
+        else{
+            self.isOnline = TRUE;
+           // NSLog(@"it is online!!");
+        }
+        
+	}
+}
+
 
 @end

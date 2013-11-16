@@ -269,7 +269,6 @@ handleColor;
                      animations:^{
                          if (fullyOpen)
                          {
-                             [appDelegate clickPopSoundStop];
                              self.center = CGPointMake(self.frame.size.width / 2, -((self.frame.size.height / 2) + topMargin));
                              fullyOpen = NO;
                          }
