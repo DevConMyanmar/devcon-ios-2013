@@ -71,8 +71,7 @@ License
  [3]: https://github.com/AFNetworking/AFNetworking
  [4]: https://github.com/samvermette/SVProgressHUD
  [5]: https://github.com/nicklockwood/FXBlurView
- [6]: http://www.google.com/analytics/
- [6]: https://www.crashlytics.com/
+ [6]: https://developers.google.com/analytics/devguides/collection/ios
  [7]: https://github.com/rs/SDWebImage
  [8]: http://developer.apple.com/library/ios/samplecode/Reachability/Introduction/Intro.html
 
