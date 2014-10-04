@@ -189,7 +189,7 @@
     return YES;
 }
 
-- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"height for cell: %f",[ScheduleCell heightForCellWithPost:[arrSchedules objectAtIndex:indexPath.row]]);
     return ([ScheduleCell heightForCellWithPost:[arrSchedules objectAtIndex:indexPath.row]]+ 81);
 }

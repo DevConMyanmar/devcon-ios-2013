@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>E45956DF-1968-453B-883F-15ED40BB3FE2</string>
+	<string>C63461A5-CC0A-4B53-A3E1-C8308833F4DA</string>
 	<key>IDESourceControlProjectName</key>
 	<string>DevCon</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>DFA914F8-7146-43A4-86F3-0733DBAEFD1C</key>
-		<string>ssh://bitbucket.org/Nex_Technology/dev-con.git</string>
+		<key>16C9D7D2D647C9202B2E9AF6C8BFB24BA758F80F</key>
+		<string>ssh://github.com/DevCon-Myanmar/DevCon-iOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>DevCon.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>DFA914F8-7146-43A4-86F3-0733DBAEFD1C</key>
+		<key>16C9D7D2D647C9202B2E9AF6C8BFB24BA758F80F</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://bitbucket.org/Nex_Technology/dev-con.git</string>
+	<string>ssh://github.com/DevCon-Myanmar/DevCon-iOS.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>DFA914F8-7146-43A4-86F3-0733DBAEFD1C</string>
+	<string>16C9D7D2D647C9202B2E9AF6C8BFB24BA758F80F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>DFA914F8-7146-43A4-86F3-0733DBAEFD1C</string>
+			<string>16C9D7D2D647C9202B2E9AF6C8BFB24BA758F80F</string>
 			<key>IDESourceControlWCCName</key>
 			<string>DevCon</string>
 		</dict>

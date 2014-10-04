@@ -82,7 +82,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-#pragma all sync is here
+#pragma mark all sync is here
 - (void)syncSpeaker{
     if(self.isOnline){
         [SVProgressHUD show];

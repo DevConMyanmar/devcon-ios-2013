@@ -6,7 +6,6 @@
 
 #import "PulldownMenu.h"
 #import "Utility.h"
-#import "GPUImage.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+StackBlur.h"
 #import "FXBlurView.h"
